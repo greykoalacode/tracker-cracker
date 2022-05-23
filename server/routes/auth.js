@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
     secure: true,
     // signed: false,
     domain: "tracker-cracker.herokuapp.com",
-    httpOnly: true,
+    httpOnly: false,
     sameSite: "none"
   });
   // .setHeader('Set-Cookie', `token=${token}`)
