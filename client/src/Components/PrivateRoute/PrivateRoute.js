@@ -6,7 +6,7 @@ import { getCookie } from "../../utils/utils";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // // const history = useHistory();
-  const cookieExists = getCookie("token") !== null;
+  const cookieExists = getCookie("token") !== undefined;
   // console.log("islogged ", user);
   // useEffect(() => {
   //   console.log('useff runn')
