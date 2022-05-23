@@ -35,6 +35,7 @@ function App() {
   const user = useStoreState((state) => state.user);
   const history = useHistory();
   const cookieExists = getCookie("token") !== null;
+  console.log('cookie ', getCookie("token"));
   console.log("app cookie", cookieExists);
 
   useEffect(() => {
