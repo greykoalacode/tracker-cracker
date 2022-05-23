@@ -6,7 +6,6 @@ const User = require("../model/User");
 const verify = require("./verifyToken");
 
 const { registerValidation, loginValidation } = require("../validation");
-const { truncate } = require("lodash");
 
 // router.post('/token', (req, res) => {
 
@@ -95,7 +94,7 @@ router.post("/login", async (req, res) => {
     expires: new Date(Date.now() + 15* 60000),
     secure: true,
     // signed: false,
-    domain: "ht-frontend-seven.vercel.app",
+    domain: "tracker-cracker.herokuapp.com",
     httpOnly: true,
     sameSite: "none"
   });
