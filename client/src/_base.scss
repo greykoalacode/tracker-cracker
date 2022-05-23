@@ -1,0 +1,15 @@
+$primary-color: #CCAFA5;
+$bg-color: #000000;
+$secondary-color: #282c35;
+$ternary-color: #3e4149;
+$button-color: #242830;
+$delete-color: #CC0000;
+$font-family: 'DM Sans';
+$font-weightbtn: 600;
+
+body {
+    font-family: $font-family, sans-serif;
+    text-transform: lowercase;
+    color: $primary-color;
+    background-color: $bg-color;
+}

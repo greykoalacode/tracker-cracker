@@ -1,0 +1,47 @@
+.routine{
+    &-card {
+        display: flex;
+        flex-direction: column;
+        max-width: 300px;
+
+        &-body{
+            padding: 1em;
+            display: grid;
+            gap: 1em;
+        }
+        // justify-content: space-between;
+    }
+    &-gif {
+        width: 100%;
+        object-fit: contain;
+        height: 100%;
+    }
+    &-badge{
+        padding: 0.3em;
+        font-weight: 600;
+        font-size: 0.9em;
+        border: 1px solid #CCAFA5;
+        border-radius: 1em;
+        text-align: center;
+        width: auto;
+        margin-right: 0.5em;
+        &-grid{
+            display: flex;
+        }
+    }
+}
+
+@media (max-width: 426px){
+    .routine{
+
+        &-card {
+            display: flex;
+            flex-direction: column;
+            // justify-content: space-between;
+        }
+        // &-gif{
+        //     height: 250px;
+        //     width: 250px;
+        // }
+    }
+}

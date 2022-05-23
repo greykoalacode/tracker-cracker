@@ -1,0 +1,94 @@
+@use "base";
+
+.regbtn {
+  font-weight: base.$font-weightbtn;
+  color: base.$primary-color;
+  background-color: base.$secondary-color;
+  border-color: base.$primary-color;
+}
+
+.delbtn {
+  background-color: base.$button-color;
+  font-weight: base.$font-weightbtn;
+  color: base.$delete-color;
+  border-color: base.$delete-color;
+}
+
+.normalbtn {
+  background-color: base.$primary-color;
+  color: base.$secondary-color;
+  font-weight: base.$font-weightbtn;
+}
+
+input,
+select,
+textarea {
+  background-color: base.$ternary-color !important;
+  color: base.$primary-color !important;
+  outline: none !important;
+  border: none !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: base.$primary-color;
+  box-shadow: 0 0 0 0.2rem rgba(204, 175, 165, 0.5);
+}
+
+.btn:focus {
+  border-color: base.$primary-color;
+  box-shadow: 0 0 0 0.2rem rgba(204, 175, 165, 0.5);
+}
+
+.btn:active,
+.btn:hover {
+  background-color: base.$primary-color;
+  color: base.$secondary-color;
+}
+
+.page {
+  /* width: 1024px; */
+  margin: 0 auto;
+}
+
+// Register  & login
+.register {
+    background-color: base.$secondary-color;
+    color: base.$primary-color;
+    width: 80%;
+}
+ 
+.link {
+    color: base.$primary-color;
+    text-decoration-color: base.$primary-color;
+    &:focus, &:hover, &:active {
+        color: base.$primary-color;
+    }
+}
+
+// habit badge
+.habit{
+    &-badge{
+        background-color: base.$secondary-color;
+        color: base.$primary-color;
+    }
+}
+
+// routines page
+.banner{
+    &-sad{
+        // background-color: base.$ternary-color;
+        padding: 0.2em;
+        // color: base.$primary-color;
+        border-radius: 0.15em;
+        font-weight: 600;
+        text-transform: capitalize;
+    }
+}
+
+@media (min-width: 768px) {
+  .page {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
