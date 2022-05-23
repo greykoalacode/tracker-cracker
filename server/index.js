@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path  = require("path");
 const app = express();
 const mongoose = require("mongoose");
 
@@ -50,6 +51,20 @@ app.use("/api/habits", habitRoute);
 app.use("/api/exercises", exerciseRoute);
 app.use("/api/routines", routineRoute);
 app.use("/api/schedules", scheduleRoute);
+
+const __dirname = path.resolve();
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('API is running....')
+  })
+}
 
 app.get("/", (req, res) => {
   res.send("Hello");
