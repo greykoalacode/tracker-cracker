@@ -25,7 +25,7 @@ function Register() {
   //     async function getData() {
   //         const response = await fetch('http://localhost:3001/api/user/register', {method: 'POST', body: JSON.stringify(formData)}).then(res => res.json());
   //         setResp(response);
-  //         // console.log(response)
+          // console.log(response)
   //     }
   //     getData();
   // },[formData])

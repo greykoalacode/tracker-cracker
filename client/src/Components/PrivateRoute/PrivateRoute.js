@@ -7,9 +7,9 @@ import { getCookie } from "../../utils/utils";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // // const history = useHistory();
   const cookieExists = getCookie("token") !== undefined;
-  // // console.log("islogged ", user);
+  // console.log("islogged ", user);
   // useEffect(() => {
-  //   // console.log('useff runn')
+    // console.log('useff runn')
   //   if (cookieExists) {
   //     async function updateDets() {
   //       let resultObj = await api.get("/user/info");

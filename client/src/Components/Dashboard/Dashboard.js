@@ -10,7 +10,7 @@ const Dashboard = () => {
   // const getData = () => {
   //   async function getDataAsync(){
   //     let result = await axios.get("https://p8uek.sse.codesandbox.io/login", {withCredentials: true});
-  //     // console.log(result);
+      // console.log(result);
   //   }
   //   getDataAsync();
   // }
@@ -33,7 +33,7 @@ const Dashboard = () => {
   //         getData();
   //     }
   // },[])
-  // // console.log(user);
+  // console.log(user);
   return (
     <>
     {/* {

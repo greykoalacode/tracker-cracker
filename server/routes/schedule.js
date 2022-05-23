@@ -61,13 +61,13 @@ router
 
       const { _id } = req.user;
       const user = await User.findById(_id).populate("schedules");
-      // // console.log(user.schedules);
+      // console.log(user.schedules);
       if (user.schedules.length <= 0) {
         return res.status(400).send("No Schedules exist for this user.");
       }
 
       const deleteSchedule = await Schedule.deleteMany({ userID: _id });
-      // // console.log(deleteSchedule);
+      // console.log(deleteSchedule);
       if (deleteSchedule.deletedCount === 1) {
         const deleteFromUser = await User.findByIdAndUpdate(_id, {
           $set: { schedules: [] },
@@ -135,7 +135,7 @@ router
           new: true,
         }
       ).populate("workouts.exercise");
-      // // console.log(changedSchedule);
+      // console.log(changedSchedule);
       return res.json(changedSchedule);
     } catch (error) {
       return res.send(error);
@@ -147,7 +147,7 @@ router
       const { _id } = req.user;
       //   Check schedule exists
       const schedule = await Schedule.findOne({ _id: id, userID: _id });
-      // // console.log(schedule);
+      // console.log(schedule);
       if (!schedule) {
         return res.status(400).send("This Particular Schedule does not exist");
       }

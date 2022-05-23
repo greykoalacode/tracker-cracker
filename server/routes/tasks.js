@@ -14,7 +14,7 @@ router
         userID: req.user._id,
         ...req.body,
       }).save();
-      // // console.log(req.user._id)
+      // console.log(req.user._id)
       const user = await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -98,7 +98,7 @@ router
       // const task = await Task.findOne({ _id: id });
       // userID: _id
       const taskDeleted = await Task.deleteOne({ _id: id, userID: _id });
-      // // console.log(taskDeleted);
+      // console.log(taskDeleted);
       if (taskDeleted.deletedCount === 1) {
         const user = await User.findByIdAndUpdate(
           _id,

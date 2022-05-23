@@ -35,7 +35,7 @@ router
         userID: req.user._id,
         ...req.body,
       }).save();
-      // // console.log(req.user._id)
+      // console.log(req.user._id)
       const user = await User.findByIdAndUpdate(
         req.user._id,
         {
@@ -92,7 +92,7 @@ router
       const { _id } = req.user;
       const { id } = req.params;
       const newDate = dateToNumber(date);
-      // // console.log(newDate, date, new Date(newDate));
+      // console.log(newDate, date, new Date(newDate));
       const habitExists = await Habit.findById(id);
       if (habitExists) {
         const habit = await Habit.findOneAndUpdate(
@@ -137,11 +137,11 @@ router
       //   ),
       //   userID: _id,
       // });
-      // // console.log(req.body.date, moment(req.body.date).format("MM-DD-YYYY"));
-      // // console.log(habit);
+      // console.log(req.body.date, moment(req.body.date).format("MM-DD-YYYY"));
+      // console.log(habit);
 
       // const user = await User.findById(req.user._id).populate("habits");
-      // // console.log(req.body.status, habit, JSON.stringify(user.habits));
+      // console.log(req.body.status, habit, JSON.stringify(user.habits));
     } catch (error) {
       return res.send(error);
     }

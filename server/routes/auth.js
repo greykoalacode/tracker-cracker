@@ -76,7 +76,7 @@ router.post("/login", async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET, {
     expiresIn: "1h",
   });
-  // // console.log(process.env.NODE_ENV)
+  // console.log(process.env.NODE_ENV)
 
   // set cookie via header
   // res.setHeader('Set-Cookie', `token=${token}`);
@@ -86,7 +86,7 @@ router.post("/login", async (req, res) => {
   // httpOnly: true,
   // sameSite: "none",
   // secure: process.env.NODE_ENV === "production",
-  // // console.log(process.env.NODE_ENV);
+  // console.log(process.env.NODE_ENV);
   // process.env.NODE_ENV === 'production'
   //  httpOnly: true
 
@@ -115,7 +115,7 @@ router.post("/login", async (req, res) => {
 
 router.get("/logout", function (req, res) {
   // let cookie = req.cookies || req.headers.cookie;
-  // // console.log(req.headers.cookies)
+  // console.log(req.headers.cookies)
   if (!req.cookies["token"]) {
     return res.status(401).send("Not Logged In");
   }

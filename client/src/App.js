@@ -36,7 +36,7 @@ function App() {
   const history = useHistory();
   const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
-  // // console.log("app cookie", cookieExists);
+  // console.log("app cookie", cookieExists);
 
 
   useEffect(() => {
