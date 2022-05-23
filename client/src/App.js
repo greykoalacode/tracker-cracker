@@ -37,6 +37,7 @@ function App() {
   const cookieExists = getCookie("token") !== undefined;
   console.log('cookie ', getCookie("token"));
   console.log("app cookie", cookieExists);
+  
 
   useEffect(() => {
     async function updateDets() {

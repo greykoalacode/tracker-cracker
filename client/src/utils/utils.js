@@ -11,6 +11,7 @@
 
 import Cookies from "js-cookie";
 export function getCookie(cookieName){
+  console.log('av cook ',Cookies.get());
   return Cookies.get(cookieName);
 }
 
