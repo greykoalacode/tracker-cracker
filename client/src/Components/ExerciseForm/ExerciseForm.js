@@ -34,11 +34,11 @@ function ExerciseForm({
   const setRoutines = useStoreActions((actions) => actions.setRoutines);
 
   const updateRoutine = (routineDetails) => {
-    console.log("before update (data)", routineDetails);
+    // console.log("before update (data)", routineDetails);
     async function updateCall() {
-      console.log("new obj routi", routineDetails);
+      // console.log("new obj routi", routineDetails);
       let result = await api.put(`/routines/${id}`, routineDetails);
-      console.log(result);
+      // console.log(result);
       if (result.status === 200) {
         setRoutines(result.data);
 

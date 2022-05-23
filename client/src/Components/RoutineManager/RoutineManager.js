@@ -24,15 +24,15 @@ function RoutineManager() {
   // },[])
   // const updateRoutine = (routineDetails) => {
     
-  //   console.log('before update (data)',routineDetails);
+  //   // console.log('before update (data)',routineDetails);
   //   async function updateCall() {
   //     let newRoutineObj = {
   //       name: routine.name,
   //       workouts: [...routineDetails.workouts],
   //     };
-  //     console.log('new obj routi', newRoutineObj);
+  //     // console.log('new obj routi', newRoutineObj);
   //     let result = await api.put(`/routines/${id}`, newRoutineObj);
-  //     console.log(result);
+  //     // console.log(result);
   //     if (result.status === 200) {
   //       setRoutines(result.data);
         
@@ -60,7 +60,7 @@ function RoutineManager() {
 
     deleteCall();
   };
-  console.log(routine);
+  // console.log(routine);
   useEffect(() => {
     async function checkStatus() {
       let result = await checkLogin();
@@ -70,7 +70,7 @@ function RoutineManager() {
     }
     checkStatus();
   }, [history]);
-  // console.log('routine', routine);
+  // // console.log('routine', routine);
   return (
     <div className="p-3 px-4 page">
       <div>
@@ -93,7 +93,7 @@ function RoutineManager() {
             >
               {
 
-              console.log(routine.workouts.length)
+              // console.log(routine.workouts.length)
               }
               <ExerciseForm
                 workoutIndex={routine.workouts.length}

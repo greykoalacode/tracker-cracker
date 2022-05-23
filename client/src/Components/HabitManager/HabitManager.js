@@ -19,7 +19,7 @@ const HabitManager = () => {
   const setUserState = useStoreActions((actions) => actions.setUserState);
   const habit = user.habits.find((each) => each._id === id);
   const updateHabit = (habitDetails) => {
-    console.log(habitDetails);
+    // console.log(habitDetails);
     async function updateCall() {
       let result = await api.put(`/habits/${id}`, habitDetails);
       if (result.status === 200) {
@@ -47,7 +47,7 @@ const HabitManager = () => {
   useEffect(() => {
     async function checkStatus() {
       let result = await checkLogin();
-      console.log('result ', result)
+      // console.log('result ', result)
       if (result.status === 401) {
         history.push("/login");
       } else {
@@ -56,7 +56,7 @@ const HabitManager = () => {
     }
     checkStatus();
   }, []);
-  console.log(user);
+  // console.log(user);
   return (
     <div className="p-3 px-4 page">
       <div className="d-flex flex-row align-items-center">

@@ -45,7 +45,7 @@ router
     try {
       //   Check if Routines exist first
       const routines = await User.findById(req.user._id);
-      // console.log(routines.routines);
+      // // console.log(routines.routines);
       if (routines.routines.length <= 0) {
         return res.status(400).send("No Routines exist for this user.");
       }
@@ -72,7 +72,7 @@ router
       const { _id } = req.user;
       const { id } = req.params;
       const routineDoesExist = await Routine.findOne({ _id: id, userID: _id });
-      // console.log(routineDoesExist);
+      // // console.log(routineDoesExist);
       if (!routineDoesExist) {
         return res
           .status(400)
@@ -102,7 +102,7 @@ router
             new: true
           }
         );
-        // console.log(updateRoutine)
+        // // console.log(updateRoutine)
       }
       // If id is there
       else if("_id" in workouts){

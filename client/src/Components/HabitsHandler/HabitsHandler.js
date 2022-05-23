@@ -41,7 +41,7 @@ const HabitsHandler = ({ props }) => {
   const addHabit = (data) => {
     setAddingButton(false);
     reset();
-    console.log(data);
+    // console.log(data);
     async function habitUpdate() {
       let result = await api.post("/habits", data);
       if (result.status === 200) {

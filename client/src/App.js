@@ -35,14 +35,14 @@ function App() {
   const user = useStoreState((state) => state.user);
   const history = useHistory();
   const cookieExists = getCookie("token") !== undefined;
-  console.log('cookie ', getCookie("token"));
-  console.log("app cookie", cookieExists);
-  
+  // console.log('cookie ', getCookie("token"));
+  // // console.log("app cookie", cookieExists);
+
 
   useEffect(() => {
     async function updateDets() {
       if (cookieExists) {
-        console.log("update called ");
+        // console.log("update called ");
         let resultObj = await api.get("/user/info");
         let exercisesObj = await api.get("exercises");
         if (resultObj.status !== 200) {
@@ -73,7 +73,7 @@ function App() {
   //   logoutCall();
   //   // setNavigate(true);
   // }
-  console.log(user);
+  // console.log(user);
   if(!isRehydrated){
     return <div>Loading...</div>
   }

@@ -27,7 +27,7 @@ const TasksHandler = ({props}) => {
       // axios.put(`http://localhost:3001/api/tasks/${task._id}`, {name: task.name, completed: task.completed}, {withCredentials: true, headers: {
       //     "Content-Type": "application/json"
       // }});
-      console.log(result);
+      // console.log(result);
       if (result.status === 200) {
         if (result.data.length > 0) {
           setUserState({ ...user, tasks: [...result.data] });

@@ -4,7 +4,7 @@ module.exports = function (req, res, next){
     // Get Auth Header value
     // const bearerHeader = req.header('authorization');
     const cookieSet = req.cookies;
-    // console.log(cookieSet)
+    // // console.log(cookieSet)
     // check if header is undefined
     if(typeof cookieSet !== 'undefined'){
         const token = cookieSet.token;

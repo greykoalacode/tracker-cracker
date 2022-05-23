@@ -7,7 +7,7 @@ export const store = createStore(model);
 
 export async function onLogout(){
     store.persist.clear().then(() => {
-        console.log('log out');
+        // console.log('log out');
     });
     store.getActions().resetUserState();
 }

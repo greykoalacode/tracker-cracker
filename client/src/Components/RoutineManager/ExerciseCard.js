@@ -16,7 +16,7 @@ function ExerciseCard({ workout, updateRoutine, index, handleSubmit, register, u
 
   const deleteExercise = () => {
     async function filterAndUpdate() {
-      console.log("delete req");
+      // console.log("delete req");
 
       let filteredWorkouts = routine.workouts.filter(
         (eachWork) => eachWork._id !== workout._id
@@ -26,7 +26,7 @@ function ExerciseCard({ workout, updateRoutine, index, handleSubmit, register, u
         filter: true,
         workouts: filteredWorkouts,
       };
-      console.log(newRoutineObj)
+      // console.log(newRoutineObj)
       let result = await api.put(`/routines/${id}`, newRoutineObj);
       if (result.status === 200) {
         setRoutines(result.data);

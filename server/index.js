@@ -18,7 +18,7 @@ dotenv.config();
 
 // Connect to DB
 mongoose.connect(process.env.DB_CONN, () => {
-  console.log("Connected to db!");
+  // console.log("Connected to db!");
 });
 
 // middleware
@@ -71,5 +71,5 @@ if (process.env.NODE_ENV === 'production') {
 // });
 
 app.listen(process.env.PORT || 3001, () =>
-  console.log("Server Up and Running")
+  // console.log("Server Up and Running")
 );

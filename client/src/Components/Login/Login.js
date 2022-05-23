@@ -48,9 +48,9 @@ const Login = () => {
   }, []);
 
   const onSubmit = async (data) => {
-    console.log("data", data);
+    // console.log("data", data);
     let result = await login(data);
-    console.log("result", result);
+    // console.log("result", result);
     if (result.status === 200) {
       setUserState(result.data);
       userLogged(3000);
