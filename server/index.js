@@ -55,10 +55,10 @@ app.use("/api/schedules", scheduleRoute);
 // const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')))
+  app.use(express.static(path.join(__dirname, '../client/build')))
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, '../client', 'build', 'index.html'))
   )
 } else {
   app.get('/', (req, res) => {
@@ -66,9 +66,9 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello");
+// });
 
 app.listen(process.env.PORT || 3001, () =>
   console.log("Server Up and Running")
