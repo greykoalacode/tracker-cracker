@@ -16,6 +16,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   }
   const loginState = isLoggedCheck().then(
     (result) => result
+  ).catch(
+    (error) => {
+      return false;
+    }
   );
   console.log('log st',loginState);
   //  await isLoggedIn();

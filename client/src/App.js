@@ -55,6 +55,10 @@ function App() {
   }
   const loginState = isLoggedCheck().then(
     (result) => result
+  ).catch(
+    (error) => {
+      return false;
+    }
   );
   console.log('log st',loginState);
   // const cookieExists = getCookie("token") !== undefined;
