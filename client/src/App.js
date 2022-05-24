@@ -53,14 +53,18 @@ function App() {
     }
     return check();
   }
+  const loginState = isLoggedCheck().then(
+    (result) => result
+  );
+  console.log('log st',loginState);
   // const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
   // console.log("app cookie", cookieExists);
-  console.log(isLoggedCheck);
+  // console.log(isLoggedCheck);
 
   useEffect(() => {
     async function updateDets() {
-      if (isLoggedCheck) {
+      if (loginState) {
         // console.log("update called ");
         let resultObj = await api.get("/user/info");
         let exercisesObj = await api.get("exercises");

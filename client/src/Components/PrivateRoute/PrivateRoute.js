@@ -14,7 +14,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     }
     return check();
   }
-  console.log(isLoggedCheck);
+  const loginState = isLoggedCheck().then(
+    (result) => result
+  );
+  console.log('log st',loginState);
   //  await isLoggedIn();
   // console.log("islogged ", user);
   // useEffect(() => {
@@ -58,7 +61,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedCheck ? <Component {...props} /> : <Redirect to="/login" />
+        loginState ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
