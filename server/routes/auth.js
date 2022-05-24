@@ -94,8 +94,9 @@ router.post("/login", async (req, res) => {
     expires: new Date(Date.now() + 15* 60000),
     secure: true,
     // signed: false,
+    // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
     domain: "tracker-cracker.herokuapp.com",
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "none"
   });
   // .setHeader('Set-Cookie', `token=${token}`)
@@ -122,7 +123,10 @@ router.get("/logout", function (req, res) {
   res.clearCookie("token", {
     path: "/",
     httpOnly: true,
-    // sameSite: "None",
+    // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
+    sameSite: "None",
+    secure: true,
+    domain: "tracker-cracker.herokuapp.com",
     // secure: process.env.NODE_ENV === "production",
   });
   // for (var prop in cookie) {
@@ -131,7 +135,7 @@ router.get("/logout", function (req, res) {
   //     }
   //     res.cookie(prop, '', {expires: new Date(0)});
   // }
-  res.send("Logout Successful");
+  return res.send("Logout Successful");
   // res.redirect('/');
 });
 

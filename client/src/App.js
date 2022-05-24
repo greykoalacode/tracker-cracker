@@ -12,7 +12,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import HabitManager from "./Components/HabitManager/HabitManager";
-import { api } from "./http/ApiService";
+import { api, checkLogin } from "./http/ApiService";
 import Navbar from "./Components/Navbar/Navbar";
 import RoutineManager from "./Components/RoutineManager/RoutineManager";
 import { useEffect } from "react";
@@ -20,7 +20,7 @@ import { useStoreRehydrated } from 'easy-peasy';
 import data from "./data/index";
 import "./App.css";
 import "./styles.scss";
-import { getCookie } from "./utils/utils";
+import { getCookie, isLoggedIn } from "./utils/utils";
 
 function App() {
   const isRehydrated = useStoreRehydrated();
@@ -34,14 +34,27 @@ function App() {
   );
   const user = useStoreState((state) => state.user);
   const history = useHistory();
-  const cookieExists = getCookie("token") !== undefined;
+  // function isLoggedIn(){
+  //   async function check(){
+  //     let resultObj = await checkLogin();
+  //     if(resultObj.status !==  200){
+  //       // setLoginState(false);
+  //       // resetUserState();
+  //       return false;
+  //     }
+  //     return true;
+  //   }
+  //   return check();
+  // }
+  const isLoggedCheck = isLoggedIn();
+  // const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
   // console.log("app cookie", cookieExists);
 
 
   useEffect(() => {
     async function updateDets() {
-      if (cookieExists) {
+      if (isLoggedCheck) {
         // console.log("update called ");
         let resultObj = await api.get("/user/info");
         let exercisesObj = await api.get("exercises");

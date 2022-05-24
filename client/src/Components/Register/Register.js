@@ -21,25 +21,10 @@ function Register() {
     // console.log(data);
     signUp(data);
   };
-  // useEffect(() => {
-  //     async function getData() {
-  //         const response = await fetch('http://localhost:3001/api/user/register', {method: 'POST', body: JSON.stringify(formData)}).then(res => res.json());
-  //         setResp(response);
-          // console.log(response)
-  //     }
-  //     getData();
-  // },[formData])
 
   async function signUp(formData) {
     // console.log(formData);
     let result = await registerUser(formData);
-    // axios.post("http://localhost:3001/api/user/register", formData, {withCredentials: true,headers: {
-    //     "Content-Type": "application/json"
-    // }});
-    // let result = await axios.post("http://localhost:3001/api/user/login", {email: formData.email, password: formData.password}, {withCredentials: true, headers: {
-    //     "Content-Type": "application/json"
-    // }});
-    // console.log(result);
     if (result.status === 200) {
       setRegStatus(true);
       setTimeout(() => {

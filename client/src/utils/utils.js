@@ -10,9 +10,22 @@
 //   }
 
 import Cookies from "js-cookie";
+import { checkLogin } from "../http/ApiService";
+
 export function getCookie(cookieName){
   // console.log('av cook ',Cookies.get());
   return Cookies.get(cookieName);
 }
-
+export function isLoggedIn(){
+  async function check(){
+    let resultObj = await checkLogin();
+    if(resultObj.status !==  200){
+      // setLoginState(false);
+      // resetUserState();
+      return false;
+    }
+    return true;
+  }
+  return check();
+}
 

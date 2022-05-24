@@ -1,12 +1,13 @@
 import React from "react";
 import { Redirect, Route } from "react-router";
-import { getCookie } from "../../utils/utils";
+import { getCookie, isLoggedIn } from "../../utils/utils";
 
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // // const history = useHistory();
-  const cookieExists = getCookie("token") !== undefined;
+  // const cookieExists = getCookie("token") !== undefined;
+  const isLoggedCheck = isLoggedIn();
   // console.log("islogged ", user);
   // useEffect(() => {
     // console.log('useff runn')
@@ -49,7 +50,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        cookieExists ? <Component {...props} /> : <Redirect to="/login" />
+        isLoggedCheck ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
