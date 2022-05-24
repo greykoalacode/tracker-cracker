@@ -16,16 +16,40 @@ export function getCookie(cookieName){
   // console.log('av cook ',Cookies.get());
   return Cookies.get(cookieName);
 }
-export function isLoggedIn(){
+
+
+// export function isLoggedIn(){
+
+//   let loginStatus =  new Promise((resolve, reject) => {
+//     async function check(){
+//       let resultObj = await checkLogin();
+//       if(resultObj.status !==  200){
+//         // setLoginState(false);
+//         // resetUserState();
+//         // return false;
+//         reject(false);
+//       }
+//       // return true;
+//       resolve(true);
+//     }
+//     check();
+//   });
+//   loginStatus.then(
+//     () => 
+//   )
+// }
+export const loginStatus =  new Promise((resolve, reject) => {
   async function check(){
     let resultObj = await checkLogin();
     if(resultObj.status !==  200){
       // setLoginState(false);
       // resetUserState();
-      return false;
+      // return false;
+      reject(false);
     }
-    return true;
+    // return true;
+    resolve(true);
   }
-  return check();
-}
+  check();
+});
 

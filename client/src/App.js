@@ -12,15 +12,13 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import HabitManager from "./Components/HabitManager/HabitManager";
-import { api, checkLogin } from "./http/ApiService";
+import { api } from "./http/ApiService";
 import Navbar from "./Components/Navbar/Navbar";
 import RoutineManager from "./Components/RoutineManager/RoutineManager";
 import { useEffect } from "react";
 import { useStoreRehydrated } from 'easy-peasy';
-import data from "./data/index";
 import "./App.css";
 import "./styles.scss";
-import { getCookie, isLoggedIn } from "./utils/utils";
 
 function App() {
   const isRehydrated = useStoreRehydrated();
@@ -32,7 +30,7 @@ function App() {
       setExercises: actions.setExercises,
     })
   );
-  const user = useStoreState((state) => state.user);
+  const {user, isLogged} = useStoreState((state) => ({user: state.user, isLogged: state.isLogged}));
   const history = useHistory();
   // function isLoggedIn(){
   //   async function check(){
@@ -46,21 +44,22 @@ function App() {
   //   }
   //   return check();
   // }
-  const isLoggedCheck = () => {
-    async function check(){
-      let val = await isLoggedIn();
-      return val;
-    }
-    return check();
-  }
-  const loginState = isLoggedCheck().then(
-    (result) => result
-  ).catch(
-    (error) => {
-      return false;
-    }
-  );
-  console.log('log st',loginState);
+  // const isLoggedCheck = () => {
+  //   async function check(){
+  //     let val = await isLoggedIn();
+  //     return val;
+  //   }
+  //   return check();
+  // }
+  // const user = useStoreState(state => state.user);
+  // const [loginState, setLogSt] = useState(user.isLogged);
+  // loginStatus.then(
+  //   (result) => setLoginState(true)
+  // ).catch(
+  //   (error) => setLoginState(false)
+  // );
+  
+  // console.log('log st',isLogged);
   // const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
   // console.log("app cookie", cookieExists);
@@ -68,7 +67,7 @@ function App() {
 
   useEffect(() => {
     async function updateDets() {
-      if (loginState) {
+      if (isLogged) {
         // console.log("update called ");
         let resultObj = await api.get("/user/info");
         let exercisesObj = await api.get("exercises");

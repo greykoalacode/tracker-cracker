@@ -95,7 +95,7 @@ router.post("/login", async (req, res) => {
     secure: true,
     // signed: false,
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
-    domain: "tracker-cracker.herokuapp.com",
+    // domain: "tracker-cracker.herokuapp.com",
     httpOnly: true,
     sameSite: "none"
   });
@@ -126,7 +126,7 @@ router.get("/logout", function (req, res) {
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
     sameSite: "None",
     secure: true,
-    domain: "tracker-cracker.herokuapp.com",
+    // domain: "tracker-cracker.herokuapp.com",
     // secure: process.env.NODE_ENV === "production",
   });
   // for (var prop in cookie) {

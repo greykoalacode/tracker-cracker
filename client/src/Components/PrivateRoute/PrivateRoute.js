@@ -1,71 +1,28 @@
+import { useStoreState } from "easy-peasy";
 import React from "react";
 import { Redirect, Route } from "react-router";
-import { getCookie, isLoggedIn } from "../../utils/utils";
 
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // // const history = useHistory();
-  // const cookieExists = getCookie("token") !== undefined;
-  const isLoggedCheck = () => {
-    async function check(){
-      let val = await isLoggedIn();
-      return val;
-    }
-    return check();
-  }
-  const loginState = isLoggedCheck().then(
-    (result) => result
-  ).catch(
-    (error) => {
-      return false;
-    }
-  );
-  console.log('log st',loginState);
+
+  const isLogged = useStoreState(state => state.isLogged);
+  // const setLoginState =  useStoreActions(actions => actions.setLoginState);
+  // const [loginState, setLogSt] = useState(user.isLogged); 
+  // loginStatus.then(
+  //   (result) => setLoginState(true)
+  // ).catch(
+  //   (error) => setLoginState(false)
+  // );
+  // console.log('log st',isLogged);
   //  await isLoggedIn();
   // console.log("islogged ", user);
-  // useEffect(() => {
-    // console.log('useff runn')
-  //   if (cookieExists) {
-  //     async function updateDets() {
-  //       let resultObj = await api.get("/user/info");
-  //       let exercisesObj = await api.get("exercises");
-  //       if (resultObj.status !== 200) {
-  //         setLoginState(false);
-  //         history.push("/login");
-  //       } else {
-  //         setUserState({ ...user, ...resultObj.data });
-  //         setExercises(exercisesObj.data);
-  //       }
-  //     }
-  //     updateDets();
-  //   }else{
-  //       history.push("/login");
-  //   }
-  // },[]);
-  // useEffect(() => {
-  //     async function getResultObj() {
-  //         let resultObj = await api.get("/user/info");
-  //         let exercisesObj = await api.get("exercises");
-  //         // axios.get("http://localhost:3001/api/user/info", {withCredentials: true, headers: {
-  //         //     "Content-Type": "application/json"
-  //         // }});
-  //         if(resultObj.status !== 200){
-  //             setLoginState(false);
-  //             history.push("/login");
-  //         }
-  //         else {
-  //             setUserState({...user, ...resultObj.data});
-  //             setExercises(exercisesObj.data);
-  //         }
-  //     }
-  //     getResultObj();
-  // },[])
+  
   return (
     <Route
       {...rest}
       render={(props) =>
-        loginState ? <Component {...props} /> : <Redirect to="/login" />
+        isLogged ? <Component {...props} /> : <Redirect to="/login" />
       }
     />
   );
