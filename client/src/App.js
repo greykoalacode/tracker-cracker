@@ -56,7 +56,7 @@ function App() {
   // const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
   // console.log("app cookie", cookieExists);
-
+  console.log(isLoggedCheck);
 
   useEffect(() => {
     async function updateDets() {
@@ -73,7 +73,7 @@ function App() {
         }
       } else {
         resetUserState();
-        // setLoginState(false);
+        setLoginState(false);
       }
     }
     updateDets();

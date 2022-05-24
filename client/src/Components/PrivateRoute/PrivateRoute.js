@@ -14,6 +14,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     }
     return check();
   }
+  console.log(isLoggedCheck);
   //  await isLoggedIn();
   // console.log("islogged ", user);
   // useEffect(() => {
