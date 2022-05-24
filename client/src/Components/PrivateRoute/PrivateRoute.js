@@ -4,10 +4,10 @@ import { getCookie, isLoggedIn } from "../../utils/utils";
 
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = async ({ component: Component, ...rest }) => {
   // // const history = useHistory();
   // const cookieExists = getCookie("token") !== undefined;
-  const isLoggedCheck = isLoggedIn();
+  const isLoggedCheck = await isLoggedIn();
   // console.log("islogged ", user);
   // useEffect(() => {
     // console.log('useff runn')

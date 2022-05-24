@@ -22,7 +22,7 @@ import "./App.css";
 import "./styles.scss";
 import { getCookie, isLoggedIn } from "./utils/utils";
 
-function App() {
+async function App() {
   const isRehydrated = useStoreRehydrated();
   const { setLoginState, setUserState, resetUserState, setExercises } = useStoreActions(
     (actions) => ({
@@ -46,7 +46,7 @@ function App() {
   //   }
   //   return check();
   // }
-  const isLoggedCheck = isLoggedIn();
+  const isLoggedCheck = await isLoggedIn();
   // const cookieExists = getCookie("token") !== undefined;
   // console.log('cookie ', getCookie("token"));
   // console.log("app cookie", cookieExists);
