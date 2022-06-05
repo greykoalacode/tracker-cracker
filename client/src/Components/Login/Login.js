@@ -14,11 +14,12 @@ const Login = () => {
   const history = useHistory();
   const isLogged = useStoreState((state) => state.isLogged);
 
-  const { setUserState, setLoginState, resetUserState } = useStoreActions(
+  const { setUserState, setLoginState, resetUserState, setExercises } = useStoreActions(
     (actions) => ({
       setUserState: actions.setUserState,
       setLoginState: actions.setLoginState,
       resetUserState: actions.resetUserState,
+      setExercises: actions.setExercises
     })
   );
   const userLogged = (seconds) => {
@@ -52,6 +53,10 @@ const Login = () => {
     let result = await login(data);
     // console.log("result", result);
     if (result.status === 200) {
+      let exercise = await api.get("/exercises");
+      if(exercise.status === 200){
+        setExercises(exercise.data);
+      }
       setUserState(result.data);
       userLogged(3000);
     }

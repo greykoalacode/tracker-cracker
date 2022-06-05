@@ -1,9 +1,9 @@
 import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { api } from "../../http/ApiService";
-import ExerciseSelect from "../ExerciseSelect/ExerciseSelect";
+// import ExerciseSelect from "../ExerciseSelect/ExerciseSelect";
 import SetForm from "./SetForm";
 
 function ExerciseForm({
@@ -11,19 +11,7 @@ function ExerciseForm({
   workout = {},
   workoutIndex = 0,
 }) {
-  const demoFormObj = {
-    workouts: [
-      {
-        exercise: "",
-        sets: [
-          {
-            weight: 0,
-            reps: 0,
-          },
-        ],
-      },
-    ],
-  };
+
   const {user, exercises}  = useStoreState((state) => ({user: state.user, exercises: state.exercises}));
   const { register, unregister, handleSubmit, reset } = useForm(user.routines);
 
@@ -31,6 +19,11 @@ function ExerciseForm({
   const params = useParams();
   const { id } = params;
   const routine = user.routines.find((each) => each._id === id);
+  let exercise = "";
+  if(routine){
+    exercise = routine.workouts[0].exercise._id;
+  }
+
   const setRoutines = useStoreActions((actions) => actions.setRoutines);
 
   const updateRoutine = (routineDetails) => {
@@ -92,7 +85,7 @@ function ExerciseForm({
             Choose Exercise
           </label>
           <select
-            defaultValue={defaultWorkout && ("_id" in workout.exercise) ? workout.exercise._id : exercises[0]._id}
+            defaultValue={defaultWorkout && (exercise !== null) ? exercise : exercises[0]._id}
             className="form-select"
             name="exercise"
             aria-label="select-exercise"

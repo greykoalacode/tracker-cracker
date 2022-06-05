@@ -1,24 +1,32 @@
 import {
   BrowserRouter as Router,
-  Link,
   Switch,
   Route,
   useHistory,
 } from "react-router-dom";
-import Login from "./Components/Login/Login";
-import Register from "./Components/Register/Register";
-import Homepage from "./Components/Homepage/Homepage";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+// import Login from "./Components/Login/Login";
+// import Register from "./Components/Register/Register";
+// import Homepage from "./Components/Homepage/Homepage";
+// import Dashboard from "./Components/Dashboard/Dashboard";
+// import HabitManager from "./Components/HabitManager/HabitManager";
+// import RoutineManager from "./Components/RoutineManager/RoutineManager";
+// import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+// import Navbar from "./Components/Navbar/Navbar"; 
 import { useStoreActions, useStoreState } from "easy-peasy";
-import HabitManager from "./Components/HabitManager/HabitManager";
 import { api } from "./http/ApiService";
-import Navbar from "./Components/Navbar/Navbar";
-import RoutineManager from "./Components/RoutineManager/RoutineManager";
-import { useEffect } from "react";
+import { useEffect, Suspense, lazy  } from "react";
 import { useStoreRehydrated } from 'easy-peasy';
 import "./App.css";
 import "./styles.scss";
+
+const Register = lazy(() => import("./Components/Register/Register"));
+const Login = lazy(() => import("./Components/Login/Login"));
+const Homepage = lazy(() => import("./Components/Homepage/Homepage"));
+const Dashboard = lazy(() => import("./Components/Dashboard/Dashboard"));
+const HabitManager = lazy(() => import("./Components/HabitManager/HabitManager"));
+const RoutineManager = lazy(() => import("./Components/RoutineManager/RoutineManager"));
+const PrivateRoute = lazy(() => import("./Components/PrivateRoute/PrivateRoute"));
+const Navbar = lazy(() => import("./Components/Navbar/Navbar")); 
 
 function App() {
   const isRehydrated = useStoreRehydrated();
@@ -70,7 +78,7 @@ function App() {
       if (isLogged) {
         // console.log("update called ");
         let resultObj = await api.get("/user/info");
-        let exercisesObj = await api.get("exercises");
+        let exercisesObj = await api.get("/exercises");
         if (resultObj.status !== 200) {
           setLoginState(false);
           history.push("/login");
@@ -107,12 +115,13 @@ function App() {
     <div className="App">
       <Router>
         {/* <div> */}
+        <Suspense fallback={<div>Loading...</div>}>
         <Navbar />
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/register">
+          <Route path="/register" >
             <Register />
           </Route>
           <Route path="/login">
@@ -126,6 +135,7 @@ function App() {
           </Route>
         </Switch>
         {/* </div> */}
+        </Suspense>
       </Router>
       <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
     </div>
