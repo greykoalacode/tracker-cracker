@@ -14,6 +14,15 @@
   border-color: base.$delete-color;
 }
 
+.cardLink{
+  color: base.$primary-color;
+  
+  &:hover , &:focus, &:active{
+    color: base.$primary-color;
+
+  }
+}
+
 .normalbtn {
   background-color: base.$primary-color;
   color: base.$secondary-color;
@@ -40,12 +49,22 @@ textarea {
   box-shadow: 0 0 0 0.2rem rgba(204, 175, 165, 0.5);
 }
 
+
 .btn:active,
 .btn:hover {
   background-color: base.$primary-color;
   color: base.$secondary-color;
 }
 
+
+
+.btn-outline-danger, .delbtn {
+  &:active, &:hover {
+    background-color: base.$delete-color;
+    color: base.$secondary-color;
+  }
+
+}
 .page {
   /* width: 1024px; */
   margin: 0 auto;
@@ -84,6 +103,20 @@ textarea {
         font-weight: 600;
         text-transform: capitalize;
     }
+}
+
+.logout{
+  color: base.$primary-color;
+  text-decoration: none;
+  font-size: 1.5rem;
+  &:hover, &:active, &:focus{
+    color: base.$primary-color;
+    background-color: transparent;
+  }
+}
+
+.navbar{
+  font-size: 1.5rem;
 }
 
 @media (min-width: 768px) {

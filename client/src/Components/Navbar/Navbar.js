@@ -37,7 +37,7 @@ function Navbar() {
           id="navbarSupportedContent"
         >
           <div
-            className="d-flex flex-column flex-lg-row py-lg-3 h5 justify-content-between mx-auto"
+            className="d-flex flex-column flex-lg-row py-lg-3 navbar justify-content-between mx-auto"
             style={{ width: "80%" }}
           >
             <ul className="navbar-nav mr-auto">
@@ -69,7 +69,7 @@ function Navbar() {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <button className="btn nav-link btn-link" onClick={logoutUser}>
+                    <button className="btn btn-link logout nav-link" onClick={logoutUser}>
                       Logout
                     </button>
                   </li>

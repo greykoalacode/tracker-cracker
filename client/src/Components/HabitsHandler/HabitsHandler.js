@@ -3,10 +3,10 @@ import moment from "moment";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import NoTasksSVG from "../../Assets/NoTasksSVG";
 import { api } from "../../http/ApiService";
 import { progressCounter } from "../../utils/habitFunctions";
 import Card from "../Card/Card";
+import NoDashComponent from "../NoDashComponent/NoDashComponent";
 // import './styles.scss';
 
 const streakCounter = (habits) => {
@@ -141,10 +141,7 @@ const HabitsHandler = ({ props }) => {
           ))}
         </div>
       ) : (
-        <div className="d-flex p-3 flex-column align-items-center">
-          <NoTasksSVG height="30vh" />
-          <h2 className="fw-light mt-3">No Habits yet</h2>
-        </div>
+        <NoDashComponent content="Habits" />
       )}
       <div>
         {!addingButton ? (
@@ -188,9 +185,9 @@ const HabitsHandler = ({ props }) => {
                   rows="2"
                   placeholder="Description of your habit, for your motivation / reference"
                 />
-                {/* <p className="text-danger">{errors.description?.message}</p> */}
+                <p className="text-danger">{errors.description?.message}</p>
               </div>
-              <button type="submit" className="btn btn-dark">
+              <button type="submit" className="btn btn-dark normalbtn">
                 Add Habit
               </button>
             </div>

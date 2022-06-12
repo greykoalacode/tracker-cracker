@@ -4,35 +4,52 @@ import { useHistory, useParams } from 'react-router-dom';
 import { api } from '../../http/ApiService';
 import ExerciseForm from '../ExerciseForm/ExerciseForm';
 import Modal from '../Modal/Modal';
-import ModifyExercise from './ModifyExercise';
 
-function ExerciseCard({ workout, updateRoutine, index, handleSubmit, register, unregister}) {
+function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, scheduleDate=null}) {
   const history = useHistory();
   const params = useParams();
   const {id} = params;
   const user = useStoreState(state => state.user);
-  const routine = user.routines.find(each => each._id === id);
-  const setRoutines = useStoreActions(actions =>  actions.setRoutines);
-
+  const {setSchedules, setRoutines} = useStoreActions(actions => ({ setRoutines: actions.setRoutines, setSchedules: actions.setSchedules}) );
+  
+  
   const deleteExercise = () => {
     async function filterAndUpdate() {
-      // console.log("delete req");
-
-      let filteredWorkouts = routine.workouts.filter(
-        (eachWork) => eachWork._id !== workout._id
-      );
-      let newRoutineObj = {
-        ...routine,
-        filter: true,
-        workouts: filteredWorkouts,
-      };
-      // console.log(newRoutineObj)
-      let result = await api.put(`/routines/${id}`, newRoutineObj);
-      if (result.status === 200) {
-        setRoutines(result.data);
-      } else if (result.status === 401) {
-        history.push("/login");
+      if(isRoutine){
+        const routine = user.routines.find(each => each._id === id);
+        let filteredWorkouts = routine.workouts.filter(
+          (eachWork) => eachWork._id !== workout._id
+        );
+        let newRoutineObj = {
+          ...routine,
+          filter: true,
+          workouts: filteredWorkouts,
+        };
+        let result = await api.put(`/routines/${id}`, newRoutineObj);
+        if (result.status === 200) {
+          setRoutines(result.data);
+        } else if (result.status === 401) {
+          history.push("/login");
+        }
       }
+      else if(isSchedule){
+        const schedule = user.schedules.find(each => each._id === id);
+        let filteredWorkouts = schedule.workouts.filter(
+          (eachWork) => eachWork._id !== workout._id
+        );
+        let newScheduleObj = {
+          ...schedule,
+          filter: true,
+          workouts: filteredWorkouts,
+        };
+        let result = await api.put(`/schedules/${id}`, newScheduleObj);
+        if (result.status === 200) {
+          setSchedules(result.data);
+        } else if (result.status === 401) {
+          history.push("/login");
+        }
+      }
+
     }
     filterAndUpdate();
   };
@@ -98,6 +115,10 @@ function ExerciseCard({ workout, updateRoutine, index, handleSubmit, register, u
                 defaultWorkout={true}
                 workout={workout}
                 workoutIndex={index}
+                isRoutine={isRoutine}
+                isSchedule={isSchedule}
+                scheduleDate={scheduleDate}
+                editExerciseId={exercise._id}
                />
             </Modal>
             <button className="btn delbtn" onClick={deleteExercise}>Delete</button>

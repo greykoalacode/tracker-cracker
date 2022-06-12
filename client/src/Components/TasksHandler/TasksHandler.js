@@ -81,7 +81,7 @@ const TasksHandler = ({props}) => {
   return (
     <Card title="Tasks" props={props}>
       <form onSubmit={handleSubmit(addTask)}>
-        <div className="input-group mb-3">
+        <div className="input-group input-group-sm mb-2">
           <input
             type="text"
             {...register("task", { required: "Task Name is Required",minLength: {value: 3, message: "Task should be atleast of 3 letters"}})}
@@ -90,8 +90,8 @@ const TasksHandler = ({props}) => {
             aria-describedby="addTask"
           />
           <div className="input-group-append">
-            <button className="btn btn-outline-dark register" type="submit">
-              Add Task
+            <button className="btn btn-sm btn-outline-dark regbtn" type="submit">
+              Add
             </button>
           </div>
         </div>

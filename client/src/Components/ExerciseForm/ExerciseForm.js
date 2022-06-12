@@ -1,5 +1,5 @@
 import { useStoreActions, useStoreState } from "easy-peasy";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { api } from "../../http/ApiService";
@@ -10,6 +10,10 @@ function ExerciseForm({
   defaultWorkout = false,
   workout = {},
   workoutIndex = 0,
+  isRoutine=false,
+  isSchedule=false,
+  scheduleDate=null,
+  editExerciseId=null
 }) {
 
   const {user, exercises}  = useStoreState((state) => ({user: state.user, exercises: state.exercises}));
@@ -18,25 +22,45 @@ function ExerciseForm({
   const history = useHistory();
   const params = useParams();
   const { id } = params;
-  const routine = user.routines.find((each) => each._id === id);
-  let exercise = "";
-  if(routine){
-    exercise = routine.workouts[0].exercise._id;
-  }
+  // const [exercise, setExercise] = useState(null);
+  // if(isRoutine){
+  //   const routine = user.routines.find((each) => each._id === id);
 
-  const setRoutines = useStoreActions((actions) => actions.setRoutines);
+  //   if(routine){
+  //     if(routine.workouts.length > 0){
+  //       setExercise(routine.workouts[workoutIndex].exercise._id);
+  //     }
+  //   }
+  // }
+  // if(isSchedule){
+  //   const schedule = user.schedules.find((each) => each._id === id);
+  //   // console.log(schedule, workoutIndex)
+  //   if(schedule){
+  //     if(schedule.workouts.length > 0){
+  //       setExercise(schedule.workouts[workoutIndex].exercise._id);
+  //     }
+  //   }
+  // }
+  
+  const {setRoutines, setSchedules, setExercises} = useStoreActions((actions) => ({setRoutines: actions.setRoutines, setSchedules: actions.setSchedules, setExercises: actions.setExercises}));
 
-  const updateRoutine = (routineDetails) => {
-    // console.log("before update (data)", routineDetails);
+  const update = (details) => {
     async function updateCall() {
-      // console.log("new obj routi", routineDetails);
-      let result = await api.put(`/routines/${id}`, routineDetails);
-      // console.log(result);
-      if (result.status === 200) {
-        setRoutines(result.data);
-
-      } else if (result.status === 401) {
-        history.push("/login");
+      if(isRoutine){
+        let result = await api.put(`/routines/${id}`, details);
+        if (result.status === 200) {
+          setRoutines(result.data);
+        } else if (result.status === 401) {
+          history.push("/login");
+        }
+      }
+      else if(isSchedule){
+        let result = await api.put(`/schedules/${id}`, details);
+        if (result.status === 200) {
+          setSchedules(result.data);
+        } else if (result.status === 401) {
+          history.push("/login");
+        }
       }
       reset();
     }
@@ -66,15 +90,34 @@ function ExerciseForm({
     reps: 0,
   };
 
-
+  useEffect(() => {
+    if(exercises.length === 0){
+      async function isUserLoggedin() {
+        let result = await api.get("/user/info");
+        if (result.status === 200) {
+          let exercise = await api.get("/exercises");
+          if(exercise.status === 200){
+            setExercises(exercise.data);
+          }
+      }else{
+        history.push("/login");
+      }
+    }
+    isUserLoggedin();
+  }
+  })
 
   return (
     <div>
-      <form onSubmit={handleSubmit(updateRoutine)}>
-        <input className="d-none" defaultValue={routine.name} {...register("name")} />
+      <form onSubmit={handleSubmit(update)}>
         {
           defaultWorkout && (
             <input className="d-none" defaultValue={workout._id} {...register("workouts._id")} />
+          )
+        }
+        {
+          isSchedule && (
+            <input className="d-none" defaultValue={scheduleDate} {...register("date")} />
           )
         }
         <div className="form-group">
@@ -85,28 +128,18 @@ function ExerciseForm({
             Choose Exercise
           </label>
           <select
-            defaultValue={defaultWorkout && (exercise !== null) ? exercise : exercises[0]._id}
+            defaultValue={defaultWorkout && (editExerciseId !== null) ? editExerciseId : exercises[0]._id}
             className="form-select"
             name="exercise"
             aria-label="select-exercise"
             {...register("workouts.exercise")}
           >
             {exercises.map((eachEx) => (
-              <option key={eachEx._id} value={eachEx._id}>
+              <option key={eachEx._id} value={eachEx._id} disabled={eachEx._id === editExerciseId}>
                 {eachEx.name}
               </option>
             ))}
           </select>
-          {/* {defaultWorkout === true ? (
-            <ExerciseSelect
-              selectedExercise={workout.exercise._id}
-              registerRef={register(`workouts.${workoutIndex}.exercise`)}
-            />
-          ) : (
-            <ExerciseSelect
-              registerRef={register(`workouts.${workoutIndex}.exercise`)}
-            />
-          )} */}
         </div>
         {list.map((EachList, i) => (
           <EachList
@@ -123,13 +156,13 @@ function ExerciseForm({
             workoutIndex={workoutIndex}
           />
         ))}
-        <div>
+        <>
           {list.length > 0 ? (
-            <div className="gap-2">
+            <div className="">
               <button className="btn normalbtn" onClick={addList}>
                 Add Set
               </button>
-              <button className="btn delbtn" onClick={removeList}>
+              <button className="btn delbtn mx-3" onClick={removeList}>
                 Remove Set
               </button>
             </div>
@@ -140,10 +173,10 @@ function ExerciseForm({
               </button>
             </div>
           )}
-        </div>
-        <div>
+        </>
+        <div className="pt-4">
           <button className="btn regbtn" data-bs-dismiss="modal" type="submit">
-            Update Routine
+            {`Update ${isRoutine ? "Routine" : "Schedule"}`}
           </button>
         </div>
       </form>

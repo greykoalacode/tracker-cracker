@@ -18,6 +18,7 @@ import { useEffect, Suspense, lazy  } from "react";
 import { useStoreRehydrated } from 'easy-peasy';
 import "./App.css";
 import "./styles.scss";
+import ScheduleManager from "./Components/ScheduleManager/ScheduleManager";
 
 const Register = lazy(() => import("./Components/Register/Register"));
 const Login = lazy(() => import("./Components/Login/Login"));
@@ -40,38 +41,8 @@ function App() {
   );
   const {user, isLogged} = useStoreState((state) => ({user: state.user, isLogged: state.isLogged}));
   const history = useHistory();
-  // function isLoggedIn(){
-  //   async function check(){
-  //     let resultObj = await checkLogin();
-  //     if(resultObj.status !==  200){
-  //       // setLoginState(false);
-  //       // resetUserState();
-  //       return false;
-  //     }
-  //     return true;
-  //   }
-  //   return check();
-  // }
-  // const isLoggedCheck = () => {
-  //   async function check(){
-  //     let val = await isLoggedIn();
-  //     return val;
-  //   }
-  //   return check();
-  // }
-  // const user = useStoreState(state => state.user);
-  // const [loginState, setLogSt] = useState(user.isLogged);
-  // loginStatus.then(
-  //   (result) => setLoginState(true)
-  // ).catch(
-  //   (error) => setLoginState(false)
-  // );
-  
-  // console.log('log st',isLogged);
-  // const cookieExists = getCookie("token") !== undefined;
-  // console.log('cookie ', getCookie("token"));
-  // console.log("app cookie", cookieExists);
-  // console.log(isLoggedCheck);
+
+
 
   useEffect(() => {
     async function updateDets() {
@@ -129,6 +100,7 @@ function App() {
           </Route>
           <PrivateRoute component={HabitManager} path="/habits/:id" />
           <PrivateRoute component={RoutineManager} path="/routines/:id" />
+          <PrivateRoute component={ScheduleManager} path="/schedules/:id" />
           <PrivateRoute component={Dashboard} path="/dashboard" />
           <Route exact path="/">
             <Homepage />

@@ -2,6 +2,7 @@ import { useStoreState } from "easy-peasy";
 import React from "react";
 import HabitsHandler from "../HabitsHandler/HabitsHandler";
 import RoutinesHandler from "../RoutinesHandler/RoutinesHandler";
+import SchedulesHandler from "../SchedulesHandler/SchedulesHandler";
 import TasksHandler from "../TasksHandler/TasksHandler";
 
 const Dashboard = () => {
@@ -36,17 +37,13 @@ const Dashboard = () => {
   // console.log(user);
   return (
     <>
-    {/* {
-      !isLoggedIn && (
-        history.push("/login")
-        )
-    } */}
     <div className="p-2 px-4 page">
       <h1 className="fw-bold">Hello {user.name}</h1>
-      <div className="row  g-2">
+      <div className="row gap-2">
         <HabitsHandler props="col align-self-start" />
-        <RoutinesHandler props="col align-self-start" />
+        <SchedulesHandler props="col align-self-start" />
         <TasksHandler props="col align-self-start" />
+        <RoutinesHandler props="col align-self-start" />
         {/* <button onClick={getData}>Click</button> */}
       </div>
       {/* row-cols-1 row-cols-md-2 */}

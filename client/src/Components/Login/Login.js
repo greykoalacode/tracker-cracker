@@ -77,7 +77,8 @@ const Login = () => {
         </p>
       </div>
       {isLogged && (
-        <div className="p-3 my-3 bg-success text-light font-weight-600">
+        <div className="alert alert-success font-weight-600" role="alert">
+        {/* // "p-3 my-3 bg-success text-light font-weight-600" */}
           <span>Successfully Logged In</span>
         </div>
       )}

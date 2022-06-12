@@ -61,8 +61,10 @@ router.post("/login", async (req, res) => {
       path: 'routines',
       populate: 'workouts.exercise'
     })
-    // .populate("routines.wor")
-    .populate("schedules");
+    .populate({
+      path: "schedules",
+      populate: 'workouts.exercise'
+    });
 
   if (!user) return res.status(400).send("User does not exist");
 
@@ -92,12 +94,12 @@ router.post("/login", async (req, res) => {
 
   res.cookie("token",token, {
     expires: new Date(Date.now() + 15* 60000),
-    secure: true,
+    secure: false,
     // signed: false,
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
-    domain: "tracker-cracker.herokuapp.com",
-    httpOnly: true,
-    sameSite: "none"
+    // domain: "tracker-cracker.herokuapp.com",
+    // httpOnly: true,
+    // sameSite: "none"
   });
   // .setHeader('Set-Cookie', `token=${token}`)
   return res.json({
@@ -122,11 +124,11 @@ router.get("/logout", function (req, res) {
   }
   res.clearCookie("token", {
     path: "/",
-    httpOnly: true,
+    // httpOnly: true,
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
-    sameSite: "None",
-    secure: true,
-    domain: "tracker-cracker.herokuapp.com",
+    // sameSite: "None",
+    secure: false,
+    // domain: "tracker-cracker.herokuapp.com",
     // secure: process.env.NODE_ENV === "production",
   });
   // for (var prop in cookie) {
@@ -148,8 +150,10 @@ router.get("/info", verify, async (req, res) => {
         path: 'routines',
         populate: 'workouts.exercise'
       })
-      // .populate("workouts.exercise")
-      .populate("schedules");
+      .populate({
+        path: "schedules",
+        populate: 'workouts.exercise'
+      });
 
     if (!user) {
       return res.status(400).send("Not Found");

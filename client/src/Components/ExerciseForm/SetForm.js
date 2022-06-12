@@ -2,8 +2,8 @@ import React from "react";
 
 function SetForm({ workoutIndex, setIndex, defaultSet, register }) {
   return (
-    <div className="form-group">
-      <p>{`Set ${setIndex + 1}`}</p>
+    <div className="form-group my-4">
+      <p className="m-0 h5">{`Set ${setIndex + 1}`}</p>
       <div className="form-group">
         <label htmlFor={`workouts.sets.${setIndex}.weight`}>Weight</label>
         <input
