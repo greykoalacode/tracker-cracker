@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { useForm } from "react-hook-form";
-import moment from "moment";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { api } from "../../http/ApiService";
 import Card from "../Card/Card";
 import { api } from "../../http/ApiService";
 import NoDashComponent from "../NoDashComponent/NoDashComponent";
+import { getDateAccToCalendar } from "../../utils/utils";
 
 function RoutinesHandler({ props }) {
   const {
@@ -16,8 +16,7 @@ function RoutinesHandler({ props }) {
     reset,
   } = useForm();
   const user = useStoreState((state) => state.user);
-  const { setUserState, setRoutines } = useStoreActions((actions) => ({ setUserState: actions.setUserState, setRoutines: actions.setRoutines }));
-  const history = useHistory();
+  const {  setRoutines } = useStoreActions((actions) => ({ setRoutines: actions.setRoutines }));
   const [addingButton, setAddingButton] = useState(false);
   const [updateFailed, setUpdateFailed] = useState(false);
   const addRoutine = (data) => {
@@ -35,19 +34,19 @@ function RoutinesHandler({ props }) {
     }
     habitUpdate();
   };
-  const deleteRoutine = (id) => {
-    async function deleteCall() {
-      let result = await api.delete(`/routines/${id}`);
-      if (result.status === 200) {
-        setUserState({ ...user, routines: [...result.data] });
-        history.push("/dashboard");
-      } else if (result.status === 401) {
-        history.push("/login");
-      }
-    }
+  // const deleteRoutine = (id) => {
+  //   async function deleteCall() {
+  //     let result = await api.delete(`/routines/${id}`);
+  //     if (result.status === 200) {
+  //       setUserState({ ...user, routines: [...result.data] });
+  //       history.push("/dashboard");
+  //     } else if (result.status === 401) {
+  //       history.push("/login");
+  //     }
+  //   }
 
-    deleteCall();
-  };
+  //   deleteCall();
+  // };
   return (
     <Card title="Routines" props={props}>
       <>
@@ -58,37 +57,29 @@ function RoutinesHandler({ props }) {
         )}
       </>
       {user.routines.length > 0 ? (
-        <div className="row row-cols-auto">
+        <div className="my-2">
+          {/* className="row row-cols-auto" */}
           {user.routines.map((each) => (
-            <div
+            <Link
+              to={`/routines/${each._id}`}
+              className="text-decoration-none cardLink w-100"
               key={each._id}
-              className="col shadow border-none"
             >
-              <div className="">
-                <div className="w-100 row row-cols-1 justify-content-between">
+                <div className="p-2 my-2 col shadow">
                     <h4 className="fw-bold m-0">{each.name}</h4>
                     <p className="my-1">{each.description}</p>
-                    <p className="fs-6 m-0">{`Updated: ${moment(
-                      each.updatedAt
-                    ).format("hh:mmA, DD-MM-YYYY")}`}</p>
+                    <p className="fs-6 m-0">{`Updated: ${getDateAccToCalendar(each.updatedAt)}`}</p>
                 </div>
-                <div className="w-100">
-                    <Link
-                      to={`/routines/${each._id}`}
-                      className="btn mr-2 btn-sm regbtn"
-                    >
-                      View
-                    </Link>
+                {/* <div className="w-100">
+                    
                     <button
                       onClick={() => deleteRoutine(each._id)}
                       className="btn ml-2 btn-sm btn-outline-danger"
                     >
                       Delete
                     </button>
-                </div>
-              </div>
-              {/* color: '#C6DDF0', */}
-            </div>
+                </div> */}
+            </Link>
           ))}
         </div>
       ) : (

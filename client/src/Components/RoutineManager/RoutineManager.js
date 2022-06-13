@@ -49,8 +49,8 @@ function RoutineManager() {
     async function deleteCall() {
       let result = await api.delete(`/routines/${id}`);
       if (result.status === 200) {
-        setUserState({ ...user, routines: [...result.data] });
         history.push("/dashboard");
+        setUserState({ ...user, routines: [...result.data] });
       } else if (result.status === 401 || result.status === 403) {
         history.push("/login");
       }
@@ -79,9 +79,9 @@ function RoutineManager() {
             <button
               data-bs-toggle="modal"
               data-bs-target={`#modal-add-${id.slice(id.length - 5)}`}
-              className="btn regbtn"
+              className="btn fab-btn rounded-circle btn-lg fs-2 py-1"
             >
-              Add Exercise
+              +
             </button>
             <Modal
               id={`modal-add-${id.slice(id.length - 5)}`}

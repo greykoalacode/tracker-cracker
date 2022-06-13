@@ -35,6 +35,7 @@ const HabitManager = () => {
     async function deleteCall() {
       let result = await api.delete(`/habits/${id}`);
       if (result.status === 200) {
+        history.push("/dashboard");
         setUserState({ ...user, habits: [...result.data] });
       } else if (result.status === 401) {
         history.push("/login");
@@ -55,7 +56,7 @@ const HabitManager = () => {
       }
     }
     checkStatus();
-  }, []);
+  }, [history, setUserState]);
   // console.log(user);
   return (
     <div className="p-3 px-4 page">

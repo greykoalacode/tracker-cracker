@@ -55,16 +55,16 @@ router.post("/login", async (req, res) => {
 
   // Checking if email exists
   const user = await User.findOne({ email: email })
-    .populate("tasks")
-    .populate("habits")
-    .populate({
-      path: 'routines',
-      populate: 'workouts.exercise'
-    })
-    .populate({
-      path: "schedules",
-      populate: 'workouts.exercise'
-    });
+  .populate("tasks")
+  .populate("habits")
+  .populate({
+    path: 'routines',
+    populate: 'workouts.exercise'
+  })
+  .populate({
+    path: "schedules",
+    populate: 'workouts.exercise'
+  });
 
   if (!user) return res.status(400).send("User does not exist");
 
@@ -94,12 +94,12 @@ router.post("/login", async (req, res) => {
 
   res.cookie("token",token, {
     expires: new Date(Date.now() + 15* 60000),
-    secure: false,
-    // signed: false,
+    secure: true,
+    signed: false,
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
-    // domain: "tracker-cracker.herokuapp.com",
-    // httpOnly: true,
-    // sameSite: "none"
+    domain: "tracker-cracker.herokuapp.com",
+    httpOnly: true,
+    sameSite: "none"
   });
   // .setHeader('Set-Cookie', `token=${token}`)
   return res.json({
@@ -124,11 +124,11 @@ router.get("/logout", function (req, res) {
   }
   res.clearCookie("token", {
     path: "/",
-    // httpOnly: true,
+    httpOnly: true,
     // domain: process.env.NODE_ENV === "production" ? "tracker-cracker.herokuapp.com" : "localhost:3001",
-    // sameSite: "None",
-    secure: false,
-    // domain: "tracker-cracker.herokuapp.com",
+    sameSite: "None",
+    secure: true,
+    domain: "tracker-cracker.herokuapp.com",
     // secure: process.env.NODE_ENV === "production",
   });
   // for (var prop in cookie) {
@@ -144,6 +144,7 @@ router.get("/logout", function (req, res) {
 router.get("/info", verify, async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
+      .sort({"schedules.date": 1})
       .populate("tasks")
       .populate("habits")
       .populate({

@@ -2,9 +2,9 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
-import NoTasksSVG from "../../Assets/NoTasksSVG";
 import { api } from "../../http/ApiService";
 import Card from "../Card/Card";
+import NoDashComponent from "../NoDashComponent/NoDashComponent";
 
 
 
@@ -133,10 +133,7 @@ const TasksHandler = ({props}) => {
           </div>
         ))
       ) : (
-        <div className="d-flex p-3 flex-column align-items-center">
-          <NoTasksSVG height="30vh" />
-          <h2 className="fw-light mt-3">No tasks yet</h2>
-        </div>
+        <NoDashComponent content="Tasks" />
       )}
     </Card>
   );

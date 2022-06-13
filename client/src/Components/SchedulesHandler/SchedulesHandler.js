@@ -1,13 +1,13 @@
 import { useStoreActions, useStoreState } from "easy-peasy";
-import moment from "moment";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { Controller, useForm } from "react-hook-form";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api } from "../../http/ApiService";
 import Card from "../Card/Card";
 import "react-datepicker/dist/react-datepicker.css";
 import NoDashComponent from "../NoDashComponent/NoDashComponent";
+import { getDateAccToCalendar } from "../../utils/utils";
 
 function SchedulesHandler({ props }) {
   const {
@@ -18,11 +18,9 @@ function SchedulesHandler({ props }) {
     control,
   } = useForm();
   const user = useStoreState((state) => state.user);
-  const { setUserState, setSchedules } = useStoreActions((actions) => ({
-    setUserState: actions.setUserState,
+  const { setSchedules } = useStoreActions((actions) => ({
     setSchedules: actions.setSchedules,
   }));
-  const history = useHistory();
   const [addingButton, setAddingButton] = useState(false);
   const [updateFailed, setUpdateFailed] = useState(false);
   const addSchedule = (data) => {
@@ -40,18 +38,18 @@ function SchedulesHandler({ props }) {
     }
     scheduleUpdate();
   };
-  const deleteSchedule = (id) => {
-    async function deleteCall() {
-      let result = await api.delete(`/schedules/${id}`);
-      if (result.status === 200) {
-        setUserState({ ...user, schedules: [...result.data] });
-      } else if (result.status === 401) {
-        history.push("/login");
-      }
-    }
+  // const deleteSchedule = (id) => {
+  //   async function deleteCall() {
+  //     let result = await api.delete(`/schedules/${id}`);
+  //     if (result.status === 200) {
+  //       setUserState({ ...user, schedules: [...result.data] });
+  //     } else if (result.status === 401) {
+  //       history.push("/login");
+  //     }
+  //   }
 
-    deleteCall();
-  };
+  //   deleteCall();
+  // };
   return (
     <Card title={"Schedules"} props={props}>
       <>
@@ -62,7 +60,7 @@ function SchedulesHandler({ props }) {
         )}
       </>
       {user.schedules.length > 0 ? (
-        <div className="row row-cols-1">
+        <div className="my-2">
           {user.schedules.map((each) => (
             <Link
               to={`/schedules/${each._id}`}
@@ -72,39 +70,20 @@ function SchedulesHandler({ props }) {
             <div
               className="p-2 my-2 col shadow border border-dark"
             >
-              <div className="row row-cols-auto justify-content-between">
-                <div className="col">
-                  <div className="row row-cols-1 justify-content-between">
+                  <div className="">
+                    {/* row row-cols-1 justify-content-between */}
                     <h4 className="fw-bold m-0">
-                      {moment(each.date).calendar(null, {
-                        sameDay: "[Today]",
-                        lastDay: "[Yesterday]",
-                        lastWeek: "[Last] dddd",
-                      })}
+                      {getDateAccToCalendar(each.date)}
                     </h4>
-                    <p className="my-1">{each.description}</p>
-                    <p className="fs-6 m-0">{`Updated: ${moment(
-                      each.updatedAt
-                    ).format("hh:mmA, DD-MM-YYYY")}`}</p>
+                    <p className="my-1 fst-italic">{each.description}</p>
+                    <span className="m-0">{`Updated: ${getDateAccToCalendar(each.updatedAt)}`}</span>
                   </div>
-                </div>
-                <button
+                {/* <button
                   onClick={() => deleteSchedule(each._id)}
                   className="btn mx-2 btn-sm btn-outline-danger"
                 >
                   Delete
-                </button>
-                {/* <div className="col w-100">
-                  <div className=" row row-cols-auto justify-content-start align-items-center">
-                    <Link
-                      to={`/schedules/${each._id}`}
-                      className="btn btn-sm regbtn"
-                    >
-                      View
-                    </Link> */}
-                  {/* </div>
-                </div> */}
-              </div>
+                </button> */}
               {/* color: '#C6DDF0', */}
             </div>
           </Link>

@@ -10,6 +10,7 @@
 //   }
 
 import Cookies from "js-cookie";
+import moment from "moment";
 import { checkLogin } from "../http/ApiService";
 
 export function getCookie(cookieName){
@@ -53,3 +54,10 @@ export const loginStatus =  new Promise((resolve, reject) => {
   check();
 });
 
+export const getDateAccToCalendar =(date) => {
+  return moment(date).calendar(null, {
+    sameDay: "[Today]",
+    lastDay: "[Yesterday]",
+    lastWeek: "[Last] dddd",
+  });
+}

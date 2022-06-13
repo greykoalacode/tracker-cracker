@@ -10,7 +10,7 @@ router
   .get(verify, async (req, res) => {
     try {
       const user = await User.findById(req.user._id).populate({ path: 'schedules',
-      populate: 'workouts.exercise'})
+      populate: 'workouts.exercise'});
       // const schedules = await Schedule.find({_id: req.user._id}).populate("workouts.exercise");
       return res.send(user.schedules);
     } catch (error) {
