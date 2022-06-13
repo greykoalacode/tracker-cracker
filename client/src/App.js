@@ -19,6 +19,7 @@ import { useStoreRehydrated } from 'easy-peasy';
 import "./App.css";
 import "./styles.scss";
 import ScheduleManager from "./Components/ScheduleManager/ScheduleManager";
+import Loading from "./Components/Loading/Loading";
 
 const Register = lazy(() => import("./Components/Register/Register"));
 const Login = lazy(() => import("./Components/Login/Login"));
@@ -80,13 +81,13 @@ function App() {
   // }
   // console.log(user);
   if(!isRehydrated){
-    return <div>Loading...</div>
+    return <Loading />
   }
   return (
     <div className="App">
       <Router>
         {/* <div> */}
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
         <Navbar />
 
         {/* A <Switch> looks through its children <Route>s and
