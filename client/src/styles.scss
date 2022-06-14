@@ -169,6 +169,7 @@
   &:focus {
     color: base.$primary-color;
     background-color: transparent;
+    box-shadow: none;
   }
 }
 
