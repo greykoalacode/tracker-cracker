@@ -57,7 +57,7 @@ const Login = () => {
         setExercises(exercise.data);
       }
       setUserState(result.data);
-      userLogged(1000);
+      userLogged(500);
     }
   }
 
@@ -71,7 +71,7 @@ const Login = () => {
         setExercises(exercise.data);
       }
       setUserState(result.data);
-      userLogged(1000);
+      userLogged(500);
     }
   };
 

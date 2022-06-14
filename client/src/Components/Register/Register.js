@@ -29,7 +29,7 @@ function Register() {
       setRegStatus(true);
       setTimeout(() => {
         history.push("/login");
-      }, 5000);
+      }, 500);
     }
   }
 
