@@ -111,7 +111,7 @@ function RoutinesHandler({ props }) {
                   })}
                   className="form-control"
                   id="RoutineName"
-                  placeholder="Eat Healthy, Walk 10,000 steps, etc."
+                  placeholder="Push / Pull / Leg Workout"
                 />
                 <p className="text-danger">{errors.name?.message}</p>
               </div>
@@ -125,7 +125,7 @@ function RoutinesHandler({ props }) {
                   id="RoutineDescription"
                   rows="2"
                   defaultValue={""}
-                  placeholder="Description of your Routine, for your motivation / reference"
+                  placeholder="Description of your Routine"
                 />
                 <p className="text-danger">{errors.description?.message}</p>
               </div>
