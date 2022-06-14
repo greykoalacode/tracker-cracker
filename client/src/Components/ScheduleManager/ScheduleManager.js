@@ -8,6 +8,7 @@ import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import NoExerciseSVG from "../../Assets/NoExerciseSVG";
 import moment from "moment";
+import RoutineCard from "../RoutineCard/RoutineCard";
 
 function ScheduleManager() {
   const params = useParams();
@@ -86,8 +87,11 @@ function ScheduleManager() {
           </div>
         </div>
         <h3>Exercises</h3>
+        <div>
+          <RoutineCard />
+        </div>
         <div className="container">
-          <div className="row gap-5">
+          <div className="row gap-3 align-items-start my-3">
             {schedule.workouts.length > 0 ? (
               schedule.workouts.map((eachExercise, i) => (
                 <ExerciseCard

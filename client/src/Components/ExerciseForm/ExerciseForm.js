@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { api } from "../../http/ApiService";
-// import ExerciseSelect from "../ExerciseSelect/ExerciseSelect";
+import data from "../../data/index";
 import SetForm from "./SetForm";
 
 function ExerciseForm({
@@ -22,25 +22,6 @@ function ExerciseForm({
   const history = useHistory();
   const params = useParams();
   const { id } = params;
-  // const [exercise, setExercise] = useState(null);
-  // if(isRoutine){
-  //   const routine = user.routines.find((each) => each._id === id);
-
-  //   if(routine){
-  //     if(routine.workouts.length > 0){
-  //       setExercise(routine.workouts[workoutIndex].exercise._id);
-  //     }
-  //   }
-  // }
-  // if(isSchedule){
-  //   const schedule = user.schedules.find((each) => each._id === id);
-  //   // console.log(schedule, workoutIndex)
-  //   if(schedule){
-  //     if(schedule.workouts.length > 0){
-  //       setExercise(schedule.workouts[workoutIndex].exercise._id);
-  //     }
-  //   }
-  // }
   
   const {setRoutines, setSchedules, setExercises} = useStoreActions((actions) => ({setRoutines: actions.setRoutines, setSchedules: actions.setSchedules, setExercises: actions.setExercises}));
 
@@ -66,9 +47,9 @@ function ExerciseForm({
     }
     updateCall();
   };
-
+  const [part, setPart] = useState(defaultWorkout && (editExerciseId !== null) ? exercises.find(each => each._id === editExerciseId).bodyPart : "");
   const defaultKeys = Object.keys(workout).length;
-
+  const { bodyparts } = data;
   const initialSets = [];
   if (defaultKeys > 0) {
     workout.sets.map((eachSet, i) => initialSets.push(SetForm));
@@ -89,6 +70,8 @@ function ExerciseForm({
     weight: 0,
     reps: 0,
   };
+
+  const filteredExercises = part !== "" ? exercises.filter(each => each.bodyPart === part) : exercises;
 
   useEffect(() => {
     if(exercises.length === 0){
@@ -120,6 +103,16 @@ function ExerciseForm({
             <input className="d-none" defaultValue={scheduleDate} {...register("date")} />
           )
         }
+        <div className="form-group mb-3">
+          <label className="form-label">Choose Body Part</label>
+          <select className="form-select" value={part} onChange={(e) => setPart(e.target.value)}  placeholder="select here">
+            {
+              bodyparts.map(
+                eachpart => <option key={eachpart} value={eachpart}>{eachpart}</option>
+              )
+            }
+          </select>
+        </div>
         <div className="form-group">
           <label
             htmlFor={`workouts.exercise`}
@@ -134,7 +127,7 @@ function ExerciseForm({
             aria-label="select-exercise"
             {...register("workouts.exercise")}
           >
-            {exercises.map((eachEx) => (
+            {filteredExercises.map((eachEx) => (
               <option key={eachEx._id} value={eachEx._id} disabled={eachEx._id === editExerciseId}>
                 {eachEx.name}
               </option>

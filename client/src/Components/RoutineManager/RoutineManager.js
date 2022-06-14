@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { api, checkLogin } from "../../http/ApiService";
 import Modal from "../Modal/Modal";
-import "./styles.scss";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 // import AddExerciseForm from "./AddExerciseForm";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
@@ -116,7 +115,7 @@ function RoutineManager() {
         </div>
         <h3>Exercises</h3>
         <div className="container">
-          <div className="row gap-5">
+          <div className="row gap-3 align-items-start">
             {routine.workouts.length > 0 ? (
               routine.workouts.map((eachExercise, i) => (
                 <ExerciseCard

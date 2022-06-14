@@ -1,5 +1,6 @@
 const express = require("express");
 const Schedule = require("../model/Schedule");
+const Routine = require("../model/Routine");
 const User = require("../model/User");
 const router = express.Router();
 const verify = require("./verifyToken");
@@ -9,8 +10,10 @@ router
   .route("/")
   .get(verify, async (req, res) => {
     try {
-      const user = await User.findById(req.user._id).populate({ path: 'schedules',
-      populate: 'workouts.exercise'});
+      const user = await User.findById(req.user._id).populate({
+        path: "schedules",
+        populate: "workouts.exercise",
+      });
       // const schedules = await Schedule.find({_id: req.user._id}).populate("workouts.exercise");
       return res.send(user.schedules);
     } catch (error) {
@@ -37,7 +40,7 @@ router
         userID: _id,
         date: modifiedDate,
         description: description || "",
-        workouts: workouts,
+        workouts: workouts || [],
       }).save();
       const user = await User.findByIdAndUpdate(
         req.user._id,
@@ -89,8 +92,9 @@ router
     try {
       const { _id } = req.user;
       const { id } = req.params;
+
       const scheduleDoesExist = await Schedule.findOne({
-        id: id,
+        _id: id,
         userID: _id,
       }).populate("workouts.exercise");
       if (!scheduleDoesExist) {
@@ -100,7 +104,7 @@ router
             "Schedule Does not exist / User does not have the specific Schedule"
           );
       }
-
+      console.log(scheduleDoesExist);
       return res.json(scheduleDoesExist);
     } catch (error) {
       return res.send(error);
@@ -110,66 +114,95 @@ router
     try {
       const { id } = req.params;
       const { _id } = req.user;
-      const { date, description, workouts } = req.body;
-      // const modifiedDate = moment(date, "DD-MM-YYYY").format("MM-DD-YYYY");
-      const modifiedDate = dateToNumber(date);
-      console.log(date, modifiedDate)
-      const scheduleWithDateExists = await Schedule.findOne({
+      const { description, workouts } = req.body;
+      const scheduleExists = await Schedule.findOne({
         _id: id,
         userID: _id,
-        date: modifiedDate,
       });
-      if (!scheduleWithDateExists) {
+      if (!scheduleExists) {
         return res
           .status(400)
           .send("Schedule for the particular date / user does not exist");
       }
-      if("filter" in req.body){
+
+      // When a person wants to add the exercises in routine to their schedule right away.
+      if ("addRoutine" in req.body) {
+        const { routines } = req.body;
+        const routinesPresent = await Routine.find({
+          _id: { $in: routines },
+        }).populate("workouts.exercise");
+
+        const workoutsOfRoutines = routinesPresent.reduce(
+          (allworkouts, eachRoutine) => [
+            ...allworkouts,
+            ...eachRoutine.workouts,
+          ],
+          []
+        );
+        // if routine does not exist
+        if (!routinesPresent) {
+          return res
+            .status(400)
+            .json({ message: "The Routine does not exist with given Id" });
+        }
+
+        // Add them to your schedule
+        const addToSchedule = await Schedule.findByIdAndUpdate(
+          id,
+          { $addToSet: { workouts: workoutsOfRoutines } },
+          { new: true }
+        );
+        const userSchedules = await User.findById(_id).populate({
+          path: "schedules",
+          populate: "workouts.exercise",
+        });
+        return res.json(userSchedules.schedules);
+      }
+
+      // when exercise(s) is/are deleted from the schedule
+      if ("filter" in req.body) {
         const updateSchedule = await Schedule.findOneAndUpdate(
-          {_id: id, userID: _id, date: modifiedDate},
+          { _id: id, userID: _id, date: modifiedDate },
           {
-            $set: { "workouts": workouts}
+            $set: { workouts: workouts },
           },
           {
-            new: true
+            new: true,
           }
         );
-        // console.log(updateRoutine)
+        const updatedUserSchedules = await User.findById(_id).populate({
+          path: "schedules",
+          populate: "workouts.exercise",
+        });
+        return res.json(updatedUserSchedules);
       }
+
       // If id is there
-      else if("_id" in workouts){
+      else if ("_id" in workouts) {
         const updateExerciseInSchedule = await Schedule.findOneAndUpdate(
-          {_id: id, userID: _id, "workouts._id": workouts._id},
+          { _id: id, userID: _id, "workouts._id": workouts._id },
           {
-            $set: { "workouts.$": workouts}
+            $set: { "workouts.$": workouts },
           }
-         );
-      } 
-      else {
+        );
+        const updatedUserSchedules = await User.findById(_id).populate({
+          path: "schedules",
+          populate: "workouts.exercise",
+        });
+        return res.json(updatedUserSchedules);
+      } else {
         const changedSchedule = await Schedule.findOneAndUpdate(
           { _id: id, userID: _id },
           {
-            $push: { workouts: workouts },
+            $addToSet: { workouts: workouts },
           }
-        )
+        );
+        const updatedUserSchedules = await User.findById(_id).populate({
+          path: "schedules",
+          populate: "workouts.exercise",
+        });
+        return res.json(updatedUserSchedules);
       }
-      // const changedSchedule = await Schedule.findOneAndUpdate(
-      //   {
-      //     _id: id,
-      //     userID: _id,
-      //     date: modifiedDate,
-      //   },
-      //   {
-      //     description: description,
-      //     workouts: workouts,
-      //   },
-      //   {
-      //     new: true,
-      //   }
-      // ).populate("workouts.exercise");
-      // console.log(changedSchedule);
-      const updatedUserSchedules = await User.findOne({_id: _id}).populate({ path: "schedules", populate: "workouts.exercise"});
-      return res.json(updatedUserSchedules.schedules);
     } catch (error) {
       return res.send(error);
     }

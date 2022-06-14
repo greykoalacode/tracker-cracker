@@ -1,22 +1,30 @@
-import { useStoreActions, useStoreState } from 'easy-peasy';
-import React from 'react'
-import { useHistory, useParams } from 'react-router-dom';
-import { api } from '../../http/ApiService';
-import ExerciseForm from '../ExerciseForm/ExerciseForm';
-import Modal from '../Modal/Modal';
+import { useStoreActions, useStoreState } from "easy-peasy";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { api } from "../../http/ApiService";
+import ExerciseForm from "../ExerciseForm/ExerciseForm";
+import Modal from "../Modal/Modal";
 
-function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, scheduleDate=null}) {
+function ExerciseCard({
+  workout,
+  index,
+  isRoutine = false,
+  isSchedule = false,
+  scheduleDate = null,
+}) {
   const history = useHistory();
   const params = useParams();
-  const {id} = params;
-  const user = useStoreState(state => state.user);
-  const {setSchedules, setRoutines} = useStoreActions(actions => ({ setRoutines: actions.setRoutines, setSchedules: actions.setSchedules}) );
-  
-  
+  const { id } = params;
+  const user = useStoreState((state) => state.user);
+  const { setSchedules, setRoutines } = useStoreActions((actions) => ({
+    setRoutines: actions.setRoutines,
+    setSchedules: actions.setSchedules,
+  }));
+
   const deleteExercise = () => {
     async function filterAndUpdate() {
-      if(isRoutine){
-        const routine = user.routines.find(each => each._id === id);
+      if (isRoutine) {
+        const routine = user.routines.find((each) => each._id === id);
         let filteredWorkouts = routine.workouts.filter(
           (eachWork) => eachWork._id !== workout._id
         );
@@ -31,9 +39,8 @@ function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, sched
         } else if (result.status === 401) {
           history.push("/login");
         }
-      }
-      else if(isSchedule){
-        const schedule = user.schedules.find(each => each._id === id);
+      } else if (isSchedule) {
+        const schedule = user.schedules.find((each) => each._id === id);
         let filteredWorkouts = schedule.workouts.filter(
           (eachWork) => eachWork._id !== workout._id
         );
@@ -49,26 +56,21 @@ function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, sched
           history.push("/login");
         }
       }
-
     }
     filterAndUpdate();
   };
-    const { exercise, sets, _id } = workout;
-    return (
-      <div className="col p-0 routine-card border rounded-2 shadow">
-        <div className="">
-          <img
-            className="routine-gif"
-            src={exercise.gifUrl}
-            alt={exercise.name}
-          />
-        </div>
-        <div className="routine-card-body">
-          <h3 className="m-0">{exercise.name}</h3>
-          <div className="routine-badge-grid">
-            <span className="routine-badge">{exercise.bodyPart}</span>
-            <span className="routine-badge">{exercise.target}</span>
-            <span className="routine-badge">{exercise.equipment}</span>
+  const { exercise, sets, _id } = workout;
+  // style={{ maxWidth: '250px' }}
+  return (
+    <div className="col m-0 p-0" style={{ maxWidth: '272px', width:'100%' }}>
+      <div className="card rounded-2 exercise-card" >
+        <img className="card-img-top" src={exercise.gifUrl} alt="Card cap" />
+        <div className="card-body">
+          <h5 className="card-title">{exercise.name}</h5>
+          <div className="row align-items-start p-2 gap-2 my-2">
+            <span className="col badge exercise-badge bg-dark">{exercise.bodyPart}</span>
+            <span className="col badge exercise-badge bg-dark">{exercise.target}</span>
+            <span className="col badge exercise-badge bg-dark">{exercise.equipment}</span>
           </div>
           <table className="table table-striped table-dark">
             <thead>
@@ -104,13 +106,6 @@ function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, sched
               isForm
             >
               {/* Form for changing Exercise & Sets details */}
-              {/* <ModifyExercise
-                index={index}
-                workout={workout}
-                register={register}
-                handleSubmit={handleSubmit}
-                onSubmit={updateRoutine}
-              /> */}
               <ExerciseForm
                 defaultWorkout={true}
                 workout={workout}
@@ -119,13 +114,16 @@ function ExerciseCard({ workout, index, isRoutine=false, isSchedule=false, sched
                 isSchedule={isSchedule}
                 scheduleDate={scheduleDate}
                 editExerciseId={exercise._id}
-               />
+              />
             </Modal>
-            <button className="btn delbtn" onClick={deleteExercise}>Delete</button>
+            <button className="btn delbtn" onClick={deleteExercise}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
-export default ExerciseCard
+export default ExerciseCard;

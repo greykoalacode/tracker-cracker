@@ -5,7 +5,7 @@ function NoDashComponent({content}) {
   return (
     <div className="d-flex p-3 flex-column align-items-center">
           <NoTasksSVG height="20vh" />
-          <h2 className="fw-light mt-3">{`No ${content} yet`}</h2>
+          <h3 className="fw-bold fst-italic mt-3">{`No ${content} yet`}</h3>
         </div>
   )
 }

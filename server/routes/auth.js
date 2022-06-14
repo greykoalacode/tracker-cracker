@@ -94,11 +94,11 @@ router.post("/login", async (req, res) => {
 
   res.cookie("token",token, {
     expires: new Date(Date.now() + 15* 60000),
-    secure: true,
-    signed: false,
-    domain: "tracker-cracker.herokuapp.com",
-    httpOnly: true,
-    sameSite: "none"
+    secure: false,
+    // signed: false,
+    // domain: "tracker-cracker.herokuapp.com",
+    // httpOnly: true,
+    // sameSite: "none"
   });
   // .setHeader('Set-Cookie', `token=${token}`)
   return res.json({
@@ -122,10 +122,10 @@ router.get("/logout", function (req, res) {
   }
   res.clearCookie("token", {
     path: "/",
-    httpOnly: true,
-    sameSite: "None",
-    domain: "tracker-cracker.herokuapp.com",
-    secure: true,
+    // httpOnly: true,
+    // sameSite: "None",
+    // domain: "tracker-cracker.herokuapp.com",
+    secure: false,
   });
 
   return res.send("Logout Successful");

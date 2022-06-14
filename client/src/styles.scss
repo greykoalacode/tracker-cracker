@@ -14,12 +14,13 @@
   border-color: base.$delete-color;
 }
 
-.cardLink{
+.cardLink {
   color: base.$primary-color;
-  
-  &:hover , &:focus, &:active{
-    color: base.$primary-color;
 
+  &:hover,
+  &:focus,
+  &:active {
+    color: base.$primary-color;
   }
 }
 
@@ -29,9 +30,9 @@
   font-weight: base.$font-weightbtn;
 }
 
-input,
-select,
-textarea {
+.form-control,
+.form-select
+{
   background-color: base.$ternary-color !important;
   color: base.$primary-color !important;
   outline: none !important;
@@ -49,80 +50,137 @@ textarea {
   box-shadow: 0 0 0 0.2rem rgba(204, 175, 165, 0.5);
 }
 
-
 .btn:active,
 .btn:hover {
   background-color: base.$primary-color;
   color: base.$secondary-color;
 }
 
-
-
-.btn-outline-danger, .delbtn {
-  &:active, &:hover {
+.btn-outline-danger,
+.delbtn {
+  &:active,
+  &:hover {
     background-color: base.$delete-color;
     color: base.$secondary-color;
   }
-
 }
 .page {
-  /* width: 1024px; */
+  width: 80%;
   margin: 0 auto;
 }
 
 // Register  & login
 .register {
-    background-color: base.$secondary-color;
-    color: base.$primary-color;
-    width: 80%;
+  background-color: base.$secondary-color;
+  color: base.$primary-color;
+  width: 80%;
 }
- 
+
 .link {
+  color: base.$primary-color;
+  text-decoration-color: base.$primary-color;
+  &:focus,
+  &:hover,
+  &:active {
     color: base.$primary-color;
-    text-decoration-color: base.$primary-color;
-    &:focus, &:hover, &:active {
-        color: base.$primary-color;
-    }
+  }
+}
+
+
+// card designs
+.eachCard {
+  background-color: #242424;
+  // border: 0.05em solid base.$primary-color;
+  border-radius: 0.35em;
+  padding: 0.75em;
 }
 
 // habit badge
-.habit{
-    &-badge{
-        background-color: base.$secondary-color;
-        color: base.$primary-color;
-    }
+.habit {
+  &-badge {
+    background-color: base.$secondary-color;
+    color: base.$primary-color;
+  }
 }
 
 // routines page
-.banner{
-    &-sad{
-        // background-color: base.$ternary-color;
-        padding: 0.2em;
-        // color: base.$primary-color;
-        border-radius: 0.15em;
-        font-weight: 600;
-        text-transform: capitalize;
-    }
+.exercise{
+  &-card{
+    background-color: base.$secondary-color;
+  }
+  &-badge{
+    padding: 0.3em;
+    font-weight: 600;
+    font-size: 0.9em;
+    text-align: center;
+    color: base.$primary-color;
+    border: 1px solid base.$primary-color;
+    
+}
+}
+.close{
+  color: base.$primary-color !important;
 }
 
-.logout{
+// modify bootstrap list
+.list-group-item{
+  background-color: base.$secondary-color;
+  color: base.$primary-color;
+}
+.alert-dismissible{
+  padding-right: 2rem;
+}
+
+.banner {
+  &-entry {
+    border: 0.01em solid base.$primary-color;
+    background-color: base.$secondary-color;
+    &-card{
+      padding: 0.75em;
+      background-color: base.$ternary-color;
+      // max-width: 250px;
+      border-radius: 0.25rem;
+      margin: 0.5em;
+    }
+  }
+  &-routine {
+    padding: 0.8rem;
+    border: 1px solid base.$primary-color;
+    background-color: base.$secondary-color;
+    width: auto;
+    border-radius: 0.35rem;
+  }
+  &-sad {
+    // background-color: base.$ternary-color;
+    padding: 0.2em;
+    // color: base.$primary-color;
+    border-radius: 0.15em;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+}
+
+.logout {
   color: base.$primary-color;
   text-decoration: none;
   font-size: 1.5rem;
-  &:hover, &:active, &:focus{
+  &:hover,
+  &:active,
+  &:focus {
     color: base.$primary-color;
     background-color: transparent;
   }
 }
 
-.fab-btn{
-  position: absolute;
+.fab-btn {
+  position: fixed;
   bottom: 10%;
   right: 10%;
   background-color: base.$primary-color;
+  z-index: 99999;
 }
 
-.navbar{
+.navbar {
   font-size: 1.5rem;
 }
 

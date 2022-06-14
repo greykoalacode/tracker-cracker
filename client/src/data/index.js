@@ -79,6 +79,30 @@ const targetMuscles = [
   "upper back",
 ];
 
-const data = { equipments, bodyparts, targetMuscles, defaultUserState };
+const bannerContent = [
+  {
+    emoji: '✔',
+    title: 'Manage Tasks',
+    content: 'You can add & manage your tasks here'
+  },
+  {
+    emoji: '💯',
+    title: 'Ace the Habit game',
+    content: 'We got you there. Create your habits with us in one click everyday'
+  },
+  {
+    emoji: '📅',
+    title: 'Create Schedules',
+    content: 'Want to note your workouts & monitor them ? Check out Schedules! '
+  },
+  {
+    emoji: '💪',
+    title: 'Import Exercises to Schedule',
+    content: 'Tired of adding each exercise to schedule ? Make a routine and import exercises to your Schedule'
+  },
+]
+
+
+const data = { equipments, bodyparts, targetMuscles, bannerContent, defaultUserState };
 
 export default data;

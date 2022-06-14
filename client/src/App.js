@@ -20,6 +20,7 @@ import "./App.css";
 import "./styles.scss";
 import ScheduleManager from "./Components/ScheduleManager/ScheduleManager";
 import Loading from "./Components/Loading/Loading";
+import HabitsContainer from "./Components/HabitsContainer/HabitsContainer";
 
 const Register = lazy(() => import("./Components/Register/Register"));
 const Login = lazy(() => import("./Components/Login/Login"));
@@ -92,21 +93,24 @@ function App() {
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/register" >
-            <Register />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <PrivateRoute component={HabitManager} path="/habits/:id" />
-          <PrivateRoute component={RoutineManager} path="/routines/:id" />
-          <PrivateRoute component={ScheduleManager} path="/schedules/:id" />
-          <PrivateRoute component={Dashboard} path="/dashboard" />
-          <Route exact path="/">
-            <Homepage />
-          </Route>
-        </Switch>
+
+          <Switch>
+            <Route path="/register" >
+              <Register />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            
+            <PrivateRoute component={HabitManager} path="/habits/:id" />
+            <PrivateRoute component={HabitsContainer} path="/habits" />
+            <PrivateRoute component={RoutineManager} path="/routines/:id" />
+            <PrivateRoute component={ScheduleManager} path="/schedules/:id" />
+            <PrivateRoute component={Dashboard} path="/dashboard" />
+            <Route exact path="/">
+              <Homepage />
+            </Route>
+          </Switch>
         {/* </div> */}
         </Suspense>
       </Router>

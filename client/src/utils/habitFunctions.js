@@ -12,3 +12,17 @@ export const progressClassname= (each) => {
     }
     return each.status ? "success": "dark";
 }
+
+export const streakCounter = (habits) => {
+    var streak = 0;
+    // var progress = 0;
+    if (habits.length > 0) {
+      for (let i = 0; i < habits.length; i++) {
+        if (habits[i].status === false) {
+          break;
+        }
+        streak += 1;
+      }
+    }
+    return streak;
+  };
