@@ -72,7 +72,7 @@ function Navbar() {
                     </a>
                   </li>
                   <li className="nav-item">
-                    <button data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" className="btn btn-link logout nav-link" onClick={logoutUser}>
+                    <button data-toggle="collapse" data-target="#navbarSupportedContent" className="btn btn-link logout nav-link" onClick={logoutUser}>
                       Logout
                     </button>
                   </li>
