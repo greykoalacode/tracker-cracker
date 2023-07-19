@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://tracker-cracker.herokuapp.com"],
+    origin: ["http://localhost:3000", "https://tracker-ez.onrender.com"],
     credentials: true,
   })
 );
