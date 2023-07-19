@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
     expires: new Date(Date.now() + 15* 60000),
     secure: true,
     signed: false,
-    domain: "tracker-cracker.herokuapp.com",
+    domain: "tracker-ez.onrender.com",
     httpOnly: true,
     sameSite: "none"
   });

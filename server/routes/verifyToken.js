@@ -15,7 +15,6 @@ module.exports = function (req, res, next){
         } catch(err){
             if(err instanceof jwt.TokenExpiredError){
                 return res.status(401).send('Token Expired')
-                // res.status(403).send('Token expired')
             }
             else if (err instanceof jwt.JsonWebTokenError){
                 return res.status(403).send('Web Token Error')
