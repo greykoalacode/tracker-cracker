@@ -64,7 +64,7 @@ function ExerciseCard({
   return (
     <div className="col m-0 p-0" style={{ maxWidth: '272px', width:'100%' }}>
       <div className="card rounded-2 exercise-card" >
-        <img className="card-img-top" src={exercise.gifUrl} alt="Card cap" />
+        {/* <img className="card-img-top" src={exercise.gifUrl} alt="Card cap" /> */}
         <div className="card-body">
           <h5 className="card-title">{exercise.name}</h5>
           <div className="row align-items-start p-2 gap-2 my-2">

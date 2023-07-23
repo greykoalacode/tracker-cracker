@@ -96,7 +96,7 @@ router.post("/login", async (req, res) => {
     expires: new Date(Date.now() + 15* 60000),
     secure: true,
     signed: false,
-    domain: "tracker-ez.onrender.com",
+    domain: process.env.CLIENT_URL || "localhost:3000",
     httpOnly: true,
     sameSite: "none"
   });
@@ -124,7 +124,7 @@ router.get("/logout", function (req, res) {
     path: "/",
     httpOnly: true,
     sameSite: "None",
-    domain: "tracker-cracker.herokuapp.com",
+    domain: process.env.CLIENT_URL || "localhost:3000",
     secure: true,
   });
 

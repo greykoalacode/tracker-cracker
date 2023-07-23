@@ -34,7 +34,7 @@ const Login = () => {
       let result = await api.get("/user/info");
       if (result.status === 200) {
         setUserState(result.data);
-        userLogged(500);
+        userLogged(100);
       } else {
         setLoginState(false);
         resetUserState();

@@ -4,14 +4,6 @@ import {
   Route,
   useHistory,
 } from "react-router-dom";
-// import Login from "./Components/Login/Login";
-// import Register from "./Components/Register/Register";
-// import Homepage from "./Components/Homepage/Homepage";
-// import Dashboard from "./Components/Dashboard/Dashboard";
-// import HabitManager from "./Components/HabitManager/HabitManager";
-// import RoutineManager from "./Components/RoutineManager/RoutineManager";
-// import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
-// import Navbar from "./Components/Navbar/Navbar"; 
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { api } from "./http/ApiService";
 import { useEffect, Suspense, lazy  } from "react";
@@ -66,21 +58,7 @@ function App() {
     }
     updateDets();
   },[]);
-  // const isLogged = useStoreState(state => state.isLogged);
-  // const setLoginState = useStoreActions(actions => actions.setLoginState);
-  // // const [navigate, setNavigate] = useState(false);
-  // const logout = () => {
-  //   // document.cookie = "token=; Path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-  //   async function logoutCall() {
-  //     let result = await api.get("/user/logout");
-  //     if(result.status === 200){
-  //       setLoginState(false);
-  //     }
-  //   }
-  //   logoutCall();
-  //   // setNavigate(true);
-  // }
-  // console.log(user);
+
   if(!isRehydrated){
     return <Loading />
   }

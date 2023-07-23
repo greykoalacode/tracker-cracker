@@ -5,14 +5,10 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { 
-  // createStore, 
-  StoreProvider } from 'easy-peasy';
+import { StoreProvider } from 'easy-peasy';
 import {store} from './store-handlers';
-// import model from './model';
 
 
-// const store = createStore(model);
 
 ReactDOM.render(
   <React.StrictMode>

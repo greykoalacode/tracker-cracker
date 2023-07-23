@@ -45,7 +45,7 @@ const Dashboard = () => {
         <div className="row gap-3">
           <HabitsHandler props="col col-md-5 align-self-start" />
           <SchedulesHandler props="col col-md-6 align-self-start" />
-          <TasksHandler props="col col-md-5 align-self-start" />
+          {/* <TasksHandler props="col col-md-5 align-self-start" /> */}
           <RoutinesHandler props="col col-md-6 align-self-start" />
         </div>
       </div>
