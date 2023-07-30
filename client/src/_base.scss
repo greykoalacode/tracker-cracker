@@ -1,4 +1,5 @@
 $primary-color: #CCAFA5;
+$placeholder-primary-color: #8F7A74;
 $bg-color: #000000;
 $secondary-color: #282c35;
 $ternary-color: #3e4149;
@@ -12,4 +13,8 @@ body {
     // text-transform: lowercase;
     color: $primary-color;
     background-color: $bg-color;
+}
+
+.form-control::placeholder {
+    color: $placeholder-primary-color;
 }

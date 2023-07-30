@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { api, checkLogin } from "../../http/ApiService";
 import Modal from "../Modal/Modal";
-// import "./styles.scss";
 import ExerciseCard from "../ExerciseCard/ExerciseCard";
 import ExerciseForm from "../ExerciseForm/ExerciseForm";
 import NoExerciseSVG from "../../Assets/NoExerciseSVG";

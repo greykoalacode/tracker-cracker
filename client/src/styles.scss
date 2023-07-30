@@ -1,5 +1,11 @@
 @use "base";
 
+.font{
+  &-primary{
+    color: base.$primary-color;
+  }
+}
+
 .regbtn {
   font-weight: base.$font-weightbtn;
   color: base.$primary-color;
@@ -107,6 +113,7 @@
 .exercise{
   &-card{
     background-color: base.$secondary-color;
+    color: base.$primary-color;
   }
   &-badge{
     padding: 0.3em;

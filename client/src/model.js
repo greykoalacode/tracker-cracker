@@ -22,16 +22,22 @@ const model = persist({
     state.user = { ...state.user, ...dets };
   }),
   setHabits: action((state, habits) => {
-    state.user.habits = [...habits];
+    if(habits.length > 0){
+      state.user.habits = [...habits];
+    }
   }),
   setTasks: action((state, tasks) => {
     state.user.tasks = tasks;
   }),
   setRoutines: action((state, routines) => {
-    state.user.routines = [ ...routines];
+    if(routines.length > 0){
+      state.user.routines = [ ...routines];
+    }
   }),
   setSchedules: action((state, schedules) => {
-    state.user.schedules = [...schedules];
+    if(schedules.length > 0){
+      state.user.schedules = [...schedules];
+    }
   }),
   setExercises: action((state, exercises) => {
     state.exercises = exercises;
