@@ -54,25 +54,7 @@ const userSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: "Schedule",
       },
-    ],
-    // workouts: [
-    //   {
-    //     date: {
-    //       type: Date,
-    //       required: true,
-    //     },
-    //     workouts: [
-    //       {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: "Workout",
-    //       },
-    //     ],
-    //   },
-    // ],
-    // date: {
-    //     type: Date,
-    //     default: Date.now
-    // },
+    ]
   },
   {
     timestamps: true,

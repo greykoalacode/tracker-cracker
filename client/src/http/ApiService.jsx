@@ -25,3 +25,7 @@ export async function checkLogin(){
 export async function logout(){
   return api.get("/user/logout");
 }
+
+export async function fetchAllExercises () {
+  return api.get("/exercises");
+}

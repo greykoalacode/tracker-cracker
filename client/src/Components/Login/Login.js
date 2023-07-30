@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { api, login } from "../../http/ApiService";
+import { api, checkLogin, fetchAllExercises, login } from "../../http/ApiService";
 
 const Login = () => {
   const {
@@ -31,11 +31,13 @@ const Login = () => {
 
   useEffect(() => {
     async function isUserLoggedin() {
-      let result = await api.get("/user/info");
-      if (result.status === 200) {
-        setUserState(result.data);
-        userLogged(100);
-      } else {
+      try{
+        let result = await checkLogin();
+        if (result.status === 200) {
+          setUserState(result.data);
+          userLogged(100);
+        } 
+      } catch {
         setLoginState(false);
         resetUserState();
       }
@@ -44,7 +46,7 @@ const Login = () => {
       isUserLoggedin();
     }
     if (isLogged) {
-      userLogged(500);
+      userLogged(100);
     }
   }, []);
 
@@ -57,21 +59,19 @@ const Login = () => {
         setExercises(exercise.data);
       }
       setUserState(result.data);
-      userLogged(500);
+      userLogged(100);
     }
   }
 
   const onSubmit = async (data) => {
-    // console.log("data", data);
     let result = await login(data);
-    // console.log("result", result);
     if (result.status === 200) {
-      let exercise = await api.get("/exercises");
+      let exercise = await fetchAllExercises();
       if(exercise.status === 200){
         setExercises(exercise.data);
       }
       setUserState(result.data);
-      userLogged(500);
+      userLogged(100);
     }
   };
 

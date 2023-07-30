@@ -40,8 +40,7 @@ function App() {
 
   useEffect(() => {
     async function updateDets() {
-      if (isLogged) {
-        // console.log("update called ");
+      if (isLogged === true) {
         let resultObj = await api.get("/user/info");
         let exercisesObj = await api.get("/exercises");
         if (resultObj.status !== 200) {
